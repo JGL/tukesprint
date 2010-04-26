@@ -45,12 +45,15 @@ Areas of specific interest:
 4/5 prototypes of software pieces which can be trialled with groups from Tuke School to get design input. Further fundraising needed to turn prototypes into fully distributable and supported pieces.
 SMARTlab involved in working with Sound and Music to bring research interest to the user testing in context of wider inclusive design practice.
 
-==Timetable and locations==
+==Timetable and location==
+
+===Location===
+
+16 Acton Street (central London, a stones throw from Kings Cross)
+
+http://maps.google.co.uk/maps?hl=en&q=16+acton+street&lr=&ie=UTF8&hq=&hnear=16+Acton+St,+Camden+Town,+Greater+London+WC1X+9,+United+Kingdom&gl=uk&ei=p23PS6DEL5WI0wS--6ztDw&ved=0CAcQ8gEwAA&z=16
 
 ===Monday 26th April===
-
-We’ll be at Goldsmiths Digital Design Studios, Ben Pimlott Building, all day, see: http://www.gold.ac.uk/gds/ for more information.
-The studios are on the Goldsmiths New Cross campus, travel to either New Cross or New Cross Gate stations.
 
 10am – 12pm 
 Discussion: exploring user needs, setting the scenario.
@@ -61,9 +64,6 @@ Show and tell: Share existing ideas and prototypes that are being brought to the
 Dr Mick Grierson will share Maximilian with us, recently built into an oF addon, showing examples and going through ‘step through’ examples of making it work, to familiarize the group with the addon
 
 ===Tuesday 27th April===
-
-We’ll be at SMARTlab Digital Media Institute, Magiclab, in the Knowledge Dock building on the Docklands Campus. To reach the site, you need to travel east on the DLR from central London, ensuring that you are on the Beckton bound service (you may need to change at Canning Town). Alight at Cyprus, walk over the footbridge onto the campus, and bear right. You can find a map shpwing the building location here http://www.uel.ac.uk/campuses/docklands_map.htm
-any problems, call Will on 07866 361361 and I’ll come to meet you. The building is a five minute walk from alighting. SMARTlab is on the first floor, clearly signposted
 
 AM: ideas generation, collaboration options, prototyping ideas
 PM: prototyping
