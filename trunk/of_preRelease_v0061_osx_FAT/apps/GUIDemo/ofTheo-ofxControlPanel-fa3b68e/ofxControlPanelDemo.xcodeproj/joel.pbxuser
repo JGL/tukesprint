@@ -16,6 +16,7 @@
 		dataTipSortType = 0;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
 		enableDebugStr = 1;
 		environmentEntries = (
 		);
@@ -23,6 +24,8 @@
 		executableUserSymbolLevel = 0;
 		libgmallocEnabled = 0;
 		name = ofxControlPanelDemo;
+		savedGlobals = {
+		};
 		showTypeColumn = 0;
 		sourceDirectories = (
 		);
@@ -41,6 +44,77 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	5D01713E1187071C007921F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1A2F136111F5772000703E4 /* testApp.h */;
+		name = "testApp.h: 29";
+		rLen = 20;
+		rLoc = 549;
+		rType = 0;
+		vrLen = 629;
+		vrLoc = 160;
+	};
+	5D01713F1187071C007921F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E48D9CF81159443200A7B771 /* ofxControlPanel.cpp */;
+		name = "ofxControlPanel.cpp: 315";
+		rLen = 114;
+		rLoc = 8437;
+		rType = 0;
+		vrLen = 811;
+		vrLoc = 7870;
+	};
+	5D0171401187071C007921F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E4E48DAA1163EDA9007DCE2F /* videoMotionExample.h */;
+		name = "videoMotionExample.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 548;
+		vrLoc = 0;
+	};
+	5D0171411187071C007921F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1A2F135111F5772000703E4 /* testApp.cpp */;
+		name = "testApp.cpp: 34";
+		rLen = 15;
+		rLoc = 1030;
+		rType = 0;
+		vrLen = 989;
+		vrLoc = 659;
+	};
+	5D0171421187071C007921F3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1A2F135111F5772000703E4 /* testApp.cpp */;
+		name = "testApp.cpp: 222";
+		rLen = 0;
+		rLoc = 7141;
+		rType = 0;
+		vrLen = 1512;
+		vrLoc = 6156;
+	};
+	A1A2F135111F5772000703E4 /* testApp.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 4194}}";
+			sepNavSelRange = "{7141, 0}";
+			sepNavVisRange = "{6156, 1512}";
+		};
+	};
+	A1A2F136111F5772000703E4 /* testApp.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {755, 1029}}";
+			sepNavSelRange = "{549, 20}";
+			sepNavVisRange = "{160, 629}";
+		};
+	};
+	E48D9CF81159443200A7B771 /* ofxControlPanel.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1843.44, 23919}}";
+			sepNavSelRange = "{8437, 114}";
+			sepNavVisRange = "{7870, 811}";
+		};
+	};
 	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 5D01710D1186F05F007921F3 /* ofxControlPanelDemo */;
@@ -51,8 +125,37 @@
 			5D01710D1186F05F007921F3 /* ofxControlPanelDemo */,
 		);
 		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					993,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
 			PBXPerProjectTemplateStateSaveDate = 294056031;
 			PBXWorkspaceStateSaveDate = 294056031;
+		};
+		perUserProjectItems = {
+			5D01713E1187071C007921F3 /* PBXTextBookmark */ = 5D01713E1187071C007921F3 /* PBXTextBookmark */;
+			5D01713F1187071C007921F3 /* PBXTextBookmark */ = 5D01713F1187071C007921F3 /* PBXTextBookmark */;
+			5D0171401187071C007921F3 /* PBXTextBookmark */ = 5D0171401187071C007921F3 /* PBXTextBookmark */;
+			5D0171411187071C007921F3 /* PBXTextBookmark */ = 5D0171411187071C007921F3 /* PBXTextBookmark */;
+			5D0171421187071C007921F3 /* PBXTextBookmark */ = 5D0171421187071C007921F3 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 5D0171361186F092007921F3 /* Source Control */;
 		userBuildSettings = {
@@ -63,5 +166,12 @@
 		executables = (
 			5D01710D1186F05F007921F3 /* ofxControlPanelDemo */,
 		);
+	};
+	E4E48DAA1163EDA9007DCE2F /* videoMotionExample.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {755, 3192}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 548}";
+		};
 	};
 }
