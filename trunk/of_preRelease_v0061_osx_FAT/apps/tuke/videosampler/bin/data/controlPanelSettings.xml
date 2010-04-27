@@ -1,0 +1,27 @@
+<learnSpeed>
+    <val_0>0.344444</val_0>
+</learnSpeed>
+<levels>
+    <val_0>14.583333</val_0>
+</levels>
+<vertical>
+    <val_0>1.000000</val_0>
+</vertical>
+<camSensitivity>
+    <val_0>0.100000</val_0>
+</camSensitivity>
+<volumeSensitivity>
+    <val_0>0.100000</val_0>
+</volumeSensitivity>
+<movementThreshold>
+    <val_0>0.100000</val_0>
+</movementThreshold>
+<loopSound>
+    <val_0>0.000000</val_0>
+</loopSound>
+<loopDuration>
+    <val_0>1.000000</val_0>
+</loopDuration>
+<pitch>
+    <val_0>-9.555555</val_0>
+</pitch>
