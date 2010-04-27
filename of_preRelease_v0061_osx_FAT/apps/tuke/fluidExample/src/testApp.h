@@ -4,6 +4,7 @@
 #include "ofxMSAFluid.h"
 #include "ParticleSystem.h"
 #include "ofxControlPanel.h"
+#include "customDrawer.h"
 
 // comment this line out if you don't wanna use TUIO
 // you will need ofxTUIO & ofxOsc
@@ -44,7 +45,8 @@ public:
 
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
 	
-	
+		
+	customDrawer		colorPick;
 
 	int					fluidCellsX;
 	bool				resizeFluid;
