@@ -298,7 +298,7 @@
 							<real>258</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>47 57 1263 819 0 0 1440 878 </string>
+						<string>58 40 1263 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>D4B8FDA311874262001CF2D1</string>
+										<string>D4B8FDAD11876740001CF2D1</string>
 										<key>history</key>
 										<array>
 											<string>D4CC0DDF1186F4D200051BA0</string>
@@ -368,7 +368,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {983, 563}}</string>
 								<key>RubberWindowFrame</key>
-								<string>47 57 1263 819 0 0 1440 878 </string>
+								<string>58 40 1263 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -388,7 +388,7 @@
 								<key>Frame</key>
 								<string>{{0, 568}, {983, 210}}</string>
 								<key>RubberWindowFrame</key>
-								<string>47 57 1263 819 0 0 1440 878 </string>
+								<string>58 40 1263 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -552,17 +552,16 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>D4B8FDA411874262001CF2D1</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>D4B8FC55118725BA001CF2D1</string>
 		<string>D4B8FC56118725BA001CF2D1</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>D4E14F6111393EEA0042B6DA</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joey/Documents/tukePrj/of_preRelease_v0061_osx_FAT/apps/tuke/fluidExample/emptyExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>47 57 1263 819 0 0 1440 878 </string>
+	<string>58 40 1263 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -869,7 +868,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
@@ -902,7 +901,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {668, 630}}</string>
 								<key>RubberWindowFrame</key>
-								<string>639 207 668 671 0 0 1440 878 </string>
+								<string>639 206 668 671 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -931,11 +930,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>639 207 668 671 0 0 1440 878 </string>
+			<string>639 206 668 671 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
