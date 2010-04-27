@@ -22,7 +22,7 @@ void testApp::setup() {
 	box2d.checkBounds(true);
 	box2d.setFPS(30.0);
 	
-	
+	/*
 	// the joints
 	for(int i=0; i<5; i++) {
 		float x = (ofGetWidth()/2) + cos(i) * 50; 
@@ -40,7 +40,7 @@ void testApp::setup() {
 		}
 	}
 	
-	// lets draw a simple lanscape
+	// lets draw a simple landscape
 	ofPoint p(40, 400);
 	int segs = 50;
 	lineStrip.setWorld(box2d.getWorld());
@@ -50,6 +50,13 @@ void testApp::setup() {
 		lineStrip.addPoint(p.x, p.y+sin(i*ofRandom(0.01, 0.5))*30);
 	}
 	lineStrip.createShape();
+	 */
+	
+	//setting up the upDirection and upForce
+	upDirection.x = 20;
+	upDirection.y = 20;
+	upForce.x = 20;
+	upForce.y = 20;
 	
 }
 
@@ -71,6 +78,7 @@ void testApp::update() {
 		for(int i=0; i<customParticles.size(); i++) {
 			customParticles[i].addAttractionPoint(mouseX, mouseY, strength, minDis);
 			customParticles[i].addDamping(damping, damping);
+			
 		}
 		
 	}
@@ -81,7 +89,7 @@ void testApp::update() {
 //--------------------------------------------------------------
 void testApp::draw() {
 	
-	
+	/*
 	for(int i=0; i<circles.size(); i++) {
 		circles[i].draw();
 	}
@@ -93,16 +101,17 @@ void testApp::draw() {
 	}
 	for(int i=0; i<lines.size(); i++) {
 		lines[i].draw();
-	}
+	}*/
 	for(int i=0; i<customParticles.size(); i++) {
 		customParticles[i].draw();
 	}
 	
-	
+	/*
 	for(int i=0; i<5; i++) ballJoints[i].draw();
 	for(int i=0; i<5; i++) joints[i].draw();
+	 */
 	
-	lineStrip.draw();
+	//lineStrip.draw();
 	box2d.draw();
 	
 	px = mouseX;
@@ -135,7 +144,8 @@ void testApp::keyPressed(int key) {
 	if(key == 'z') {
 		float r = ofRandom(3, 10);		// a random radius 4px - 20px
 		CustomParticle p;
-		p.setPhysics(0.4, 0.53, 0.31);
+		//p.setPhysics(0.4, 0.53, 0.31);
+		p.setPhysics(0.4, 0.53, 0.0);
 		p.setup(box2d.getWorld(), mouseX, mouseY, r);
 		p.color.r = ofRandom(20, 100);
 		p.color.g = 0;
@@ -153,6 +163,13 @@ void testApp::keyPressed(int key) {
 	
 	if(key == 's') bDrawLines = !bDrawLines;
 	if(key == 'f') bMouseForce = !bMouseForce;
+	
+	if (key=='A' || key=='a'){
+		for (int i=0; i<customParticles.size(); i++){
+			customParticles[i].addAttractionPoint(ofGetWidth()/2, 0, 2.0f, 10);
+			customParticles[i].addImpulseForce(-10, 0);
+		}
+	}
 }
 
 //--------------------------------------------------------------

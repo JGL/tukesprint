@@ -61,5 +61,8 @@ public:
 	
 	ofxBox2dLine					lineStrip;		  //	a linestrip for drawing
 	
+	ofPoint upDirection;
+	ofPoint upForce;
+	
 };
 
