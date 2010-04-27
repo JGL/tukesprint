@@ -1,0 +1,67 @@
+// !$*UTF8*$!
+{
+	5D01710D1186F05F007921F3 /* ofxControlPanelDemo */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = ofxControlPanelDemo;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	5D0171361186F092007921F3 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	5D0171371186F092007921F3 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 5D01710D1186F05F007921F3 /* ofxControlPanelDemo */;
+		activeSDKPreference = macosx10.5;
+		activeTarget = E4B69B5A0A3A1756003C02F2 /* ofxControlPanelDemo */;
+		codeSenseManager = 5D0171371186F092007921F3 /* Code sense */;
+		executables = (
+			5D01710D1186F05F007921F3 /* ofxControlPanelDemo */,
+		);
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 294056031;
+			PBXWorkspaceStateSaveDate = 294056031;
+		};
+		sourceControlManager = 5D0171361186F092007921F3 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	E4B69B5A0A3A1756003C02F2 /* ofxControlPanelDemo */ = {
+		activeExec = 0;
+		executables = (
+			5D01710D1186F05F007921F3 /* ofxControlPanelDemo */,
+		);
+	};
+}
