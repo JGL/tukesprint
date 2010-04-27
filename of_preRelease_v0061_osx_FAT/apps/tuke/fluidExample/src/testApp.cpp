@@ -73,27 +73,28 @@ void testApp::setup() {
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(240, 50, 50, 255));
 	gui.loadFont("MONACO.TTF", 8);		
-	gui.setup("test cv", 0, 0, 350, 700);
-	gui.addPanel("background subtraction example", 4, false);
+	gui.setup("fluidExample", 0, 0, 350, 800);
+	gui.addPanel("", 4, false);
 	//--------- PANEL 1
 	gui.setWhichPanel(0);
 	gui.setWhichColumn(0);
 	
 	gui.addSlider("fluidCellsX", "fluid_CellsX", 100, 20, 400, true);
 	gui.addToggle("resizeFluid", "resize_Fluid", 0);
-	gui.addSlider("fs.viscosity", "fs_viscosity", 0.0002, 0.0, 0.5, false);
-	gui.addSlider("fs.colorDiffusion", "fs_colorDiffusion", 0.0003, 0.0, 0.5, false);
+	gui.addSlider("fs.viscosity", "fs_viscosity", 0.0002, 0.0, 0.01, false);
+	gui.addSlider("fs.colorDiffusion", "fs_colorDiffusion", 0.0003, 0.0, 0.01, false);
 	gui.addSlider("fs.fadeSpeed", "fs_fadeSpeed", 0.1, 0.0, 0.5, false);
 	gui.addSlider("fs.solverIterations", "fs_solverIterations", 1, 1, 20, true);
 	gui.addSlider("fd.drawMode", "fd_drawMode", 1, 0, FLUID_DRAW_MODE_COUNT-1, true);
 
-	//	gui.addToggle("fs.doRGB", fluidSolver.doRGB); 
-	//	gui.addToggle("fs.doVorticityConfinement", fluidSolver.doVorticityConfinement); 
-	//	gui.addToggle("drawFluid", drawFluid); 
-	//	gui.addToggle("drawParticles", drawParticles); 
-	//	gui.addToggle("renderUsingVA", renderUsingVA); 
-	//	gui.addToggle("fs.wrapX", fluidSolver.wrap_x); 
-	//	gui.addToggle("fs.wrapY", fluidSolver.wrap_y);
+	gui.addToggle("fs.doRGB", "fs_doRGB", 0);
+	gui.addToggle("fs.doVorticityConfinement", "fs_doVorticityConfinement", 0);
+	gui.addToggle("drawFluid", "draw_Fluid", 0);
+	gui.addToggle("drawParticles", "draw_Particles", 0);
+	gui.addToggle("renderUsingVA", "render_UsingVA", 0);
+	gui.addToggle("fs.wrapX", "fs_wrapX", 0);
+	gui.addToggle("fs.wrapY", "fs_wrapY", 0);
+
 	
 	
 	for(int i=0; i<strlen(sz); i++) {
@@ -111,9 +112,11 @@ void testApp::setup() {
 	fluidCellsX			= 150;
 	
 	drawFluid			= true;
+	gui.setValueB("draw_Fluid", 1, 0);
 	drawParticles		= true;
+	gui.setValueB("draw_Particles", 1, 0);
 	renderUsingVA		= true;
-	
+	gui.setValueB("render_UsingVA", 1, 0);	
 	
 	ofBackground(0, 0, 0);
 	ofSetVerticalSync(true);
@@ -132,7 +135,8 @@ void testApp::setup() {
 //	gui.addSlider("fs.fadeSpeed", fluidSolver.fadeSpeed, 0.0, 0.1, 0.5); 
 //	gui.addSlider("fs.solverIterations", fluidSolver.solverIterations, 1, 20); 
 //	gui.addSlider("fd.drawMode", fluidDrawer.drawMode, 0, FLUID_DRAW_MODE_COUNT-1); 
-//	gui.addToggle("fs.doRGB", fluidSolver.doRGB); 
+
+	//	gui.addToggle("fs.doRGB", fluidSolver.doRGB); 
 //	gui.addToggle("fs.doVorticityConfinement", fluidSolver.doVorticityConfinement); 
 //	gui.addToggle("drawFluid", drawFluid); 
 //	gui.addToggle("drawParticles", drawParticles); 
@@ -158,6 +162,14 @@ void testApp::update(){
 	fluidSolver.fadeSpeed = gui.getValueF("fs_fadeSpeed");
 	fluidSolver.solverIterations = gui.getValueI("fs_solverIterations");
 	fluidDrawer.drawMode = gui.getValueI("fd_drawMode");
+	
+	fluidSolver.doRGB = gui.getValueB("fs.doRGB");
+	fluidSolver.doVorticityConfinement = gui.getValueB("fs_doVorticityConfinement");
+	drawFluid = gui.getValueB("draw_Fluid");
+	drawParticles = gui.getValueB("draw_Particles");
+	renderUsingVA = gui.getValueB("render_UsingVA");
+	fluidSolver.wrap_x = gui.getValueB("fs_wrapX");
+	fluidSolver.wrap_y = gui.getValueB("fs_wrapY");
 	
 	if(resizeFluid) 	{
 		fluidSolver.setSize(fluidCellsX, fluidCellsX / window.aspectRatio);

@@ -265,13 +265,6 @@
 							<array>
 								<string>E4B69B4A0A3A1720003C02F2</string>
 								<string>D4CC0DC81186F49200051BA0</string>
-								<string>D4CC0DF01186F4EE00051BA0</string>
-								<string>D4CC0DF21186F4EE00051BA0</string>
-								<string>D4CC0DF31186F4EE00051BA0</string>
-								<string>D4CC0E041186F4EE00051BA0</string>
-								<string>D4CC0E051186F4EE00051BA0</string>
-								<string>D4CC0DCD1186F4A600051BA0</string>
-								<string>D4CC0DD11186F4A600051BA0</string>
 								<string>E4B69E1C0A3A1BDC003C02F2</string>
 								<string>E4C2422310CC54B6004149E2</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -279,10 +272,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>22</integer>
-									<integer>16</integer>
-									<integer>15</integer>
-									<integer>1</integer>
+									<integer>18</integer>
+									<integer>11</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -306,7 +297,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>22 -430 1263 819 0 0 1440 878 </string>
+						<string>103 48 1263 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -324,7 +315,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ofxMSAFluidSolver.h</string>
+								<string>testApp.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -332,11 +323,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ofxMSAFluidSolver.h</string>
+										<string>testApp.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>D4B8FC4311872135001CF2D1</string>
+										<string>D4B8FC611187268E001CF2D1</string>
 										<key>history</key>
 										<array>
 											<string>D4CC0DDF1186F4D200051BA0</string>
@@ -344,7 +335,6 @@
 											<string>D4B8F7D81186FD72001CF2D1</string>
 											<string>D4B8F8181186FF78001CF2D1</string>
 											<string>D4B8F86611870B69001CF2D1</string>
-											<string>D4B8FC2D11871FD4001CF2D1</string>
 											<string>D4B8FC3A11872135001CF2D1</string>
 											<string>D4B8FC3B11872135001CF2D1</string>
 											<string>D4B8FC3C11872135001CF2D1</string>
@@ -353,7 +343,8 @@
 											<string>D4B8FC3F11872135001CF2D1</string>
 											<string>D4B8FC4011872135001CF2D1</string>
 											<string>D4B8FC4111872135001CF2D1</string>
-											<string>D4B8FC4211872135001CF2D1</string>
+											<string>D4B8FC4A118725BA001CF2D1</string>
+											<string>D4B8FC4B118725BA001CF2D1</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -367,7 +358,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1055, 535}}</string>
 								<key>RubberWindowFrame</key>
-								<string>22 -430 1263 819 0 0 1440 878 </string>
+								<string>103 48 1263 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -387,7 +378,7 @@
 								<key>Frame</key>
 								<string>{{0, 540}, {1055, 238}}</string>
 								<key>RubberWindowFrame</key>
-								<string>22 -430 1263 819 0 0 1440 878 </string>
+								<string>103 48 1263 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -551,11 +542,16 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>D4B8FC621187268E001CF2D1</string>
+		<string>D4B8FC55118725BA001CF2D1</string>
+		<string>D4B8FC56118725BA001CF2D1</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>D4E14F6111393EEA0042B6DA</string>
 		<string>/Users/joey/Documents/tukePrj/of_preRelease_v0061_osx_FAT/apps/tuke/fluidExample/emptyExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>22 -430 1263 819 0 0 1440 878 </string>
+	<string>103 48 1263 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -678,8 +674,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {316, 201}}</string>
-											<string>{{316, 0}, {378, 201}}</string>
+											<string>{{0, 0}, {316, 202}}</string>
+											<string>{{316, 0}, {378, 202}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -694,8 +690,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 201}}</string>
-											<string>{{0, 201}, {694, 180}}</string>
+											<string>{{0, 0}, {694, 202}}</string>
+											<string>{{0, 202}, {694, 179}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -728,7 +724,7 @@
 										<real>148</real>
 									</array>
 									<key>Frame</key>
-									<string>{{316, 0}, {378, 201}}</string>
+									<string>{{316, 0}, {378, 202}}</string>
 									<key>RubberWindowFrame</key>
 									<string>380 456 694 422 0 0 1440 878 </string>
 								</dict>
@@ -756,13 +752,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>D4B8F74C1186FA35001CF2D1</string>
+				<string>D4B8FC4D118725BA001CF2D1</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>D4B8F74D1186FA35001CF2D1</string>
-				<string>D4B8F74E1186FA35001CF2D1</string>
-				<string>D4B8F74F1186FA35001CF2D1</string>
-				<string>D4B8F7501186FA35001CF2D1</string>
-				<string>D4B8F7511186FA35001CF2D1</string>
+				<string>D4B8FC4E118725BA001CF2D1</string>
+				<string>D4B8FC4F118725BA001CF2D1</string>
+				<string>D4B8FC50118725BA001CF2D1</string>
+				<string>D4B8FC51118725BA001CF2D1</string>
+				<string>D4B8FC52118725BA001CF2D1</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -916,7 +912,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>D4B8F7521186FA35001CF2D1</string>
+				<string>D4B8FC53118725BA001CF2D1</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
