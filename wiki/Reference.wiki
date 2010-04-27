@@ -38,3 +38,5 @@ OFX Box2D
 http://code.google.com/p/vanderlin/
 
 OFX MSA Fluid
+
+http://code.google.com/p/ofxmsaof/
