@@ -32,3 +32,7 @@ Making Music With Images: The LumiSonic? Audiovisualisation System for the Deaf 
 OFX Control Panel
 
 http://github.com/ofTheo/ofxControlPanel
+
+OFX Box2D
+
+http://code.google.com/p/vanderlin/
