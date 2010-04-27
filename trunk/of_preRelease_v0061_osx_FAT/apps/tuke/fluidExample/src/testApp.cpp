@@ -36,13 +36,22 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		
 		if(addColor) {
 			msaColor drawColor;
+	
 			int hue = lroundf((x + y) * 180 + ofGetFrameNum()) % 360;
-			drawColor.setHSV(hue, 1, 1);
+			//drawColor.setHSV(hue, 1, 1);
 			
-			fluidSolver.r[index]  += drawColor.r * colorMult;
-			fluidSolver.g[index]  += drawColor.g * colorMult;
-			fluidSolver.b[index]  += drawColor.b * colorMult;
-			//cout << "added color" << fluidSolver.r[index] << " " << fluidSolver.g[index] << endl;
+
+			
+			
+//			fluidSolver.r[index]  += drawColor.r * colorMult;
+//			fluidSolver.g[index]  += drawColor.g * colorMult;
+//			fluidSolver.b[index]  += drawColor.b * colorMult;
+			
+			fluidSolver.r[index]  += colorPick.col.r;
+			fluidSolver.g[index]  += colorPick.col.g;
+			fluidSolver.b[index]  += colorPick.col.b;
+	
+			
 			if(drawParticles) particleSystem.addParticles(x * window.width, y * window.height, 10);
 		}
 		
@@ -103,7 +112,7 @@ void testApp::setup() {
 	for(int i=0; i<strlen(sz); i++) {
 		sz[i] = sz[i] + 20;
 	}
-	printf("%s\n", sz);
+	//printf("%s\n", sz);
 	
 	
 	
