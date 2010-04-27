@@ -207,7 +207,7 @@ public:
 	float invWidth;
 	float invHeight;
 	
-protected:
+//protected:
 	
 	int		_NX, _NY, _numCells;
 	float	_invNX, _invNY, _invNumCells;
