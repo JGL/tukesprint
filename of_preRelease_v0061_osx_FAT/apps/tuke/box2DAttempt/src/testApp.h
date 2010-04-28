@@ -13,13 +13,24 @@ public:
 	ofColor color;
 	void draw() {
 		float radius = getRadius();
+		ofImage star;
+		star.loadImage("particle.png");
+		ofTexture starTexture;
+		
+		starTexture.allocate(star.width, star.height, GL_RGB, false);
+		starTexture.loadData(star.getPixels(), star.width, star.height, GL_RGB);
+		
+		starTexture.bind();
 		
 		glPushMatrix();
 		glTranslatef(getPosition().x, getPosition().y, 0);
+		ofRotate((color.r));
+		starTexture.draw(0,0);
+		/*ofSetColor(color.r, color.g, color.b);
+		 ofFill();
+		 ofCircle(0, 0, radius);	*/
 		
-		ofSetColor(color.r, color.g, color.b);
-		ofFill();
-		ofCircle(0, 0, radius);	
+		
 		
 		glPopMatrix();
 		
@@ -46,8 +57,8 @@ public:
 	void resized(int w, int h);
 	void audioReceived 	(float * input, int bufferSize, int nChannels); 
 	void generateParticles();
-
-
+	
+	
 	float px, py;
 	bool							bDrawLines;
 	bool							bMouseForce;
@@ -66,7 +77,7 @@ public:
 	
 	ofPoint upDirection;
 	ofPoint upForce;
-		
+	
 	float * left;
 	float * right;
 	int 	bufferCounter;
