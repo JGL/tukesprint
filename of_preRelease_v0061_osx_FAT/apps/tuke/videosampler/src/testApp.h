@@ -12,6 +12,7 @@
 
 
 #define MAX_NUM_FRAMES (MAX_RECORD_SECONDS*25)
+#define MAX_VIDEOS 12
 class testApp : public ofBaseApp{
 	
 public:
@@ -31,6 +32,9 @@ public:
 	void audioRequested (float * output, int bufferSize, int nChannels); 		
 	void audioReceived 	(float * input, int bufferSize, int nChannels); 
 	
+	
+	void startRecording();
+	void stopRecording();
 
 	// audio recording stuff
 	float *recordBuffer;
@@ -54,6 +58,16 @@ public:
 
 	vector<VideoSample*> samples;
 	int sampleInputPos;
+	
+	
+	// parameters
+	float recordThreshold;
+	float recordStopThreshold;
+	float minRecordTime;
+	
+	bool recordMode;
+	int lastSamplePlayed;
+	float playbackSpeed;
 };
 
 #endif	

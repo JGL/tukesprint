@@ -13,7 +13,7 @@ VideoSample::VideoSample() {
 	display.allocate(VIDEO_WIDTH, VIDEO_HEIGHT, OF_IMAGE_COLOR);
 }
 
-void VideoSample::deallocate() {
+void VideoSample::deallocateVideo() {
 	if(frames!=NULL) {
 		for(int i = 0; i < frameCount; i++) {
 			delete [] frames[i];
@@ -29,7 +29,7 @@ void VideoSample::trigger(float volume) {
 }
 
 void VideoSample::loadFrames(unsigned char** _frames, int _frameCount) {
-	dealloc();
+	deallocateVideo();
 	frameCount = _frameCount;
 	frames = _frames;
 	printf("Recorded %d frames\n", frameCount);
