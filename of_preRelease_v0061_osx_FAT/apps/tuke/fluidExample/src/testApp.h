@@ -6,10 +6,12 @@
 #include "ofxControlPanel.h"
 #include "customDrawer.h"
 #include "ofxOpenCv.h"
-
+#include "ofxCvOpticalFlowLK.h"
 
 #define USE_GUI		
 
+#define VISION_WIDTH  320
+#define VISION_HEIGHT 240
 
 
 class testApp : public ofSimpleApp{
@@ -17,6 +19,7 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void exit();
 	
 	void keyPressed  (int key);
 	void mouseMoved(int x, int y );
@@ -34,6 +37,8 @@ public:
 
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
 
+	
+	void opticalFlowToFluid();
 	
 	int inputmode;
 		
@@ -59,14 +64,8 @@ public:
 	ofxCvColorImage		colorImg;
 	
 	ofxCvGrayscaleImage 	grayImage;
-	ofxCvGrayscaleImage 	grayBg;
-	ofxCvGrayscaleImage 	grayDiff;
-	
-	ofxCvContourFinder 	contourFinder;
-	
-	int 				threshold;
-	bool				bLearnBakground;
-	
+	ofxCvGrayscaleImage 	grayLast;
+	ofxCvOpticalFlowLK		flow;
 	
 	
 	

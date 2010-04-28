@@ -85,6 +85,7 @@
 		E4C242CD10CC650E004149E2 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C242CC10CC650E004149E2 /* libfmodex.dylib */; };
 		E4C2443910CC7693004149E2 /* openFrameworks-Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */; };
 		E4C246DA10CCAE22004149E2 /* freeimage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C246D910CCAE22004149E2 /* freeimage.a */; };
+		EAE741691188902F0096C19E /* ofxCvOpticalFlowLK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE741671188902F0096C19E /* ofxCvOpticalFlowLK.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,6 +321,8 @@
 		E4C2429310CC5C38004149E2 /* freetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = freetype.a; path = ../../../libs/freetype/lib/osx/freetype.a; sourceTree = SOURCE_ROOT; };
 		E4C242CC10CC650E004149E2 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = ../../../libs/fmodex/lib/osx/libfmodex.dylib; sourceTree = SOURCE_ROOT; };
 		E4C246D910CCAE22004149E2 /* freeimage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = freeimage.a; path = ../../../libs/FreeImage/lib/osx/freeimage.a; sourceTree = SOURCE_ROOT; };
+		EAE741671188902F0096C19E /* ofxCvOpticalFlowLK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCvOpticalFlowLK.cpp; sourceTree = "<group>"; };
+		EAE741681188902F0096C19E /* ofxCvOpticalFlowLK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCvOpticalFlowLK.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -944,6 +947,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				EAE741671188902F0096C19E /* ofxCvOpticalFlowLK.cpp */,
+				EAE741681188902F0096C19E /* ofxCvOpticalFlowLK.h */,
 				D4B8FCA111872E8F001CF2D1 /* customDrawer.cpp */,
 				D4B8FCA211872E8F001CF2D1 /* customDrawer.h */,
 				D4CC0DBC1186F46600051BA0 /* main.cpp */,
@@ -1169,6 +1174,7 @@
 				D4D1688411884D1600E81583 /* ofxCvGrayscaleImage.cpp in Sources */,
 				D4D1688511884D1600E81583 /* ofxCvImage.cpp in Sources */,
 				D4D1688611884D1600E81583 /* ofxCvShortImage.cpp in Sources */,
+				EAE741691188902F0096C19E /* ofxCvOpticalFlowLK.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
