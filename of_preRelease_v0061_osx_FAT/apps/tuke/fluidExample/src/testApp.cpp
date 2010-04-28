@@ -81,9 +81,12 @@ void testApp::setup() {
 	//---------- PANEL
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(240, 50, 50, 255));
+	
 	gui.loadFont("MONACO.TTF", 8);		
-	gui.setup("fluidExample", 0, 0, 750, 440);
+	gui.setup("fluidExample", 0, 0, 900, 440);
+
 	gui.addPanel("", 8, false);
+	gui.addPanel("Tracking", 8, false);
 	
 	//--------- PANEL 1
 	gui.setWhichPanel(0);
@@ -109,12 +112,37 @@ void testApp::setup() {
 	gui.setWhichColumn(6);
 	gui.addCustomRect("colorPicker", &colorPick, 256, 256);
 	
+	//--------- PANEL 2
+	gui.setWhichPanel(1);
+	gui.setWhichColumn(0);
+
+	gui.addDrawableRect("colorImg", &colorImg, 200, 150);
+	gui.addDrawableRect("grayImg", &grayImage, 200, 150);
+	
+	gui.setWhichColumn(3);
+	gui.addDrawableRect("grayBg", &grayBg, 200, 150);
+	gui.addDrawableRect("grayDiff", &grayDiff, 200, 150);
+	
+	gui.setWhichColumn(5);	
+	gui.addDrawableRect("contours", &contourFinder, 200, 150);
+
+	
+	
+	// 
 	for(int i=0; i<strlen(sz); i++) {
 		sz[i] = sz[i] + 20;
 	}
-	//printf("%s\n", sz);
 	
+	//openCV things
+	vidGrabber.setVerbose(true);
+	vidGrabber.initGrabber(320,240);
+	colorImg.allocate(320,240);
+	grayImage.allocate(320,240);
+	grayBg.allocate(320,240);
+	grayDiff.allocate(320,240);
 	
+	bLearnBakground = true;
+	threshold = 80;
 	
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
@@ -139,12 +167,7 @@ void testApp::setup() {
 	ofBackground(0, 0, 0);
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
-	
-	
-	//TUIO if needed
-#ifdef USE_TUIO
-	tuioClient.start(3333);
-#endif
+
 
 
 	
@@ -182,25 +205,35 @@ void testApp::update(){
 	}
 	
 	gui.update();
-
-#ifdef USE_TUIO
-	tuioClient.getMessage();
-	
-	// do finger stuff
-	list<ofxTuioCursor*>cursorList = tuioClient.getTuioCursors();
-	for(list<ofxTuioCursor*>::iterator it=cursorList.begin(); it != cursorList.end(); it++) {
-		ofxTuioCursor *tcur = (*it);
-        float vx = tcur->getXSpeed() * tuioCursorSpeedMult;
-        float vy = tcur->getYSpeed() * tuioCursorSpeedMult;
-        if(vx == 0 && vy == 0) {
-            vx = ofRandom(-tuioStationaryForce, tuioStationaryForce);
-            vy = ofRandom(-tuioStationaryForce, tuioStationaryForce);
-        }
-        addToFluid(tcur->getX(), tcur->getY(), vx, vy);
-    }
-#endif
-	
 	fluidSolver.update();
+	
+	//openCV
+	
+    bool bNewFrame = false;
+	
+	vidGrabber.grabFrame();
+	bNewFrame = vidGrabber.isFrameNew();
+	
+	if (bNewFrame){
+		
+		colorImg.setFromPixels(vidGrabber.getPixels(), 320,240);
+
+		
+        grayImage = colorImg;
+		if (bLearnBakground == true){
+			grayBg = grayImage;		// the = sign copys the pixels from grayImage into grayBg (operator overloading)
+			bLearnBakground = false;
+		}
+		
+		// take the abs value of the difference between background and incoming and then threshold:
+		grayDiff.absDiff(grayBg, grayImage);
+		grayDiff.threshold(threshold);
+		
+		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
+		// also, find holes is set to true so we will get interior contours as well....
+		contourFinder.findContours(grayDiff, 20, (340*240)/3, 10, true);	// find holes
+	}
+	
 	
 	// save old mouse position (openFrameworks doesn't do this automatically like processing does)
 	pmouseX = mouseX;
@@ -223,6 +256,28 @@ void testApp::draw(){
 
 	//----------- GUI DRAW
 	gui.draw();
+	
+	
+
+	
+//	// then draw the contours:
+//	
+//	ofFill();
+//	ofSetColor(0x333333);
+//	ofRect(360,540,320,240);
+//	ofSetColor(0xffffff);
+	
+	// we could draw the whole contour finder
+	//contourFinder.draw(360,540);
+	
+	// or, instead we can draw each blob individually,
+	// this is how to get access to them:
+	
+	//PUT THIS IN its own box
+//    for (int i = 0; i < contourFinder.nBlobs; i++){
+//        contourFinder.blobs[i].draw(360,540);
+//    }
+	
 }
 
 //--------------------------------------------------------------

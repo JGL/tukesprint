@@ -5,28 +5,12 @@
 #include "ParticleSystem.h"
 #include "ofxControlPanel.h"
 #include "customDrawer.h"
+#include "contourF.h"
+#include "ofxOpenCv.h"
 
-// comment this line out if you don't wanna use TUIO
-// you will need ofxTUIO & ofxOsc
-#define USE_TUIO		
 
-// comment this line out if you don't wanna use the GUI
-// you will need ofxSimpleGuiToo, ofxMSAInteractiveObject & ofxXmlSettings
-// if you don't use the GUI, you won't be able to see the fluid parameters
 #define USE_GUI		
 
-
-
-#ifdef USE_TUIO
-#include "ofxTuio.h"
-#define tuioCursorSpeedMult				0.5	// the iphone screen is so small, easy to rack up huge velocities! need to scale down 
-#define tuioStationaryForce				0.001f	// force exerted when cursor is stationary
-#endif
-
-
-#ifdef USE_GUI 
-//#include "ofxSimpleGuiToo.h"
-#endif
 
 
 class testApp : public ofSimpleApp{
@@ -47,6 +31,7 @@ public:
 	
 		
 	customDrawer		colorPick;
+	contourF			contDraw;
 
 	int					fluidCellsX;
 	bool				resizeFluid;
@@ -61,6 +46,22 @@ public:
 	
 	int					pmouseX, pmouseY;
 	
+	// ----- OPEN CV STUFF
+	ofVideoGrabber 		vidGrabber;
+	ofxCvColorImage		colorImg;
+	
+	ofxCvGrayscaleImage 	grayImage;
+	ofxCvGrayscaleImage 	grayBg;
+	ofxCvGrayscaleImage 	grayDiff;
+	
+	ofxCvContourFinder 	contourFinder;
+	
+	int 				threshold;
+	bool				bLearnBakground;
+	
+	
+	
+	
 	// cache these for slightly better performance
 	struct {
 		int				width;
@@ -72,13 +73,9 @@ public:
 	} window;
 	
 	
-#ifdef USE_TUIO
-	myTuioClient tuioClient;
-#endif	
-	
 #ifdef USE_GUI 
 	ofxControlPanel gui;
-	//ofxSimpleGuiToo	gui;
+
 #endif
 	
 	
