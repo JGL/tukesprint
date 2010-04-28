@@ -5,7 +5,7 @@
 
 
 #pragma mark Custom methods
-
+//--------------------------------------------------------------
 void fadeToColor(float r, float g, float b, float speed) {
 	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -17,9 +17,7 @@ void fadeToColor(float r, float g, float b, float speed) {
     glVertex2f(0, myApp->window.height);
     glEnd();
 }
-
-
-// add force and dye to fluid, and create particles
+//--------------------------------------------------------------
 void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce) {
     float speed = dx * dx  + dy * dy * window.aspectRatio2;    // balance the x and y components of speed with the screen aspect ratio
 	printf("%f, %f\n", dx, dy);
@@ -37,21 +35,12 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		if(addColor) {
 			msaColor drawColor;
 	
-			int hue = lroundf((x + y) * 180 + ofGetFrameNum()) % 360;
-			//drawColor.setHSV(hue, 1, 1);
-			
-
-			
-			
-//			fluidSolver.r[index]  += drawColor.r * colorMult;
-//			fluidSolver.g[index]  += drawColor.g * colorMult;
-//			fluidSolver.b[index]  += drawColor.b * colorMult;
+			//int hue = lroundf((x + y) * 180 + ofGetFrameNum()) % 360;
 			
 			fluidSolver.r[index]  += colorPick.col.r;
 			fluidSolver.g[index]  += colorPick.col.g;
 			fluidSolver.b[index]  += colorPick.col.b;
-	
-			
+				
 			if(drawParticles) particleSystem.addParticles(x * window.width, y * window.height, 10);
 		}
 		
@@ -63,28 +52,18 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		if(!drawFluid && ofGetFrameNum()%5 ==0) fadeToColor(0, 0, 0, 0.1);
     }
 }
-
-
-
-
-
-#pragma mark App callbacks
-
-
-//char sz[] = "ofxMSAFluid Demo | (c) 2009 Mehmet Akten | www.memo.tv";
-char sz[] = "[Rd9?-2XaUP0QY[hO%9QTYQ`-W`QZhcccYQY[`b";
-
-
-
 //--------------------------------------------------------------
-void testApp::setup() {	 
+#pragma mark App callbacks
+char sz[] = "ofxMSAFluid Demo | (c) 2009 Mehmet Akten | www.memo.tv";
+//--------------------------------------------------------------
+void testApp::setupGui(){
 	//---------- PANEL
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(240, 50, 50, 255));
 	
 	gui.loadFont("MONACO.TTF", 8);		
 	gui.setup("fluidExample", 0, 0, 900, 440);
-
+	
 	gui.addPanel("", 8, false);
 	gui.addPanel("Tracking", 8, false);
 	
@@ -108,14 +87,14 @@ void testApp::setup() {
 	gui.addToggle("renderUsingVA", "render_UsingVA", 0);
 	gui.addToggle("fs.wrapX", "fs_wrapX", 0);
 	gui.addToggle("fs.wrapY", "fs_wrapY", 0);
-
+	
 	gui.setWhichColumn(6);
 	gui.addCustomRect("colorPicker", &colorPick, 256, 256);
 	
 	//--------- PANEL 2
 	gui.setWhichPanel(1);
 	gui.setWhichColumn(0);
-
+	
 	gui.addDrawableRect("colorImg", &colorImg, 200, 150);
 	gui.addDrawableRect("grayImg", &grayImage, 200, 150);
 	
@@ -125,31 +104,7 @@ void testApp::setup() {
 	
 	gui.setWhichColumn(5);	
 	gui.addDrawableRect("contours", &contourFinder, 200, 150);
-
 	
-	
-	// 
-	for(int i=0; i<strlen(sz); i++) {
-		sz[i] = sz[i] + 20;
-	}
-	
-	//openCV things
-	vidGrabber.setVerbose(true);
-	vidGrabber.initGrabber(320,240);
-	colorImg.allocate(320,240);
-	grayImage.allocate(320,240);
-	grayBg.allocate(320,240);
-	grayDiff.allocate(320,240);
-	
-	bLearnBakground = true;
-	threshold = 80;
-	
-	// setup fluid stuff
-	fluidSolver.setup(100, 100);
-    fluidSolver.enableRGB(true).setFadeSpeed(0.002).setDeltaT(0.5).setVisc(0.00015).setColorDiffusion(0);
-	fluidDrawer.setup(&fluidSolver);
-	
-	window.aspectRatio	= 1;
 	
 	fluidCellsX			= 150;
 	
@@ -163,22 +118,41 @@ void testApp::setup() {
 	gui.setValueB("fs_doRGB", 1, 0);
 	resizeFluid			= true;
 	
+}
+//--------------------------------------------------------------
+void testApp::setupOCV(){
+	//openCV things
+	vidGrabber.setVerbose(true);
+	vidGrabber.initGrabber(320,240);
+	colorImg.allocate(320,240);
+	grayImage.allocate(320,240);
+	grayBg.allocate(320,240);
+	grayDiff.allocate(320,240);
+	
+	bLearnBakground = true;
+	threshold = 80;
+}
+//--------------------------------------------------------------
+void testApp::setup() {	 
+	
+	setupGui();
+	setupOCV();
+	
+	// setup fluid stuff
+	fluidSolver.setup(100, 100);
+    fluidSolver.enableRGB(true).setFadeSpeed(0.002).setDeltaT(0.5).setVisc(0.00015).setColorDiffusion(0);
+	fluidDrawer.setup(&fluidSolver);
+	
+	window.aspectRatio	= 1;
+	
 	// set up OF stuff
 	ofBackground(0, 0, 0);
 	ofSetVerticalSync(true);
-	ofSetFrameRate(60);
-
-
-
-	
+	ofSetFrameRate(60);	
 
 }
-
-
 //--------------------------------------------------------------
-void testApp::update(){
-	
-	
+void testApp::updateGui(){
 	//------ update all of the gui elements into the fluid program variables
 	
 	resizeFluid = gui.getValueB("resize_Fluid");
@@ -205,10 +179,11 @@ void testApp::update(){
 	}
 	
 	gui.update();
-	fluidSolver.update();
 	
-	//openCV
-	
+}
+//--------------------------------------------------------------
+void testApp::updateOCV(){
+
     bool bNewFrame = false;
 	
 	vidGrabber.grabFrame();
@@ -217,29 +192,30 @@ void testApp::update(){
 	if (bNewFrame){
 		
 		colorImg.setFromPixels(vidGrabber.getPixels(), 320,240);
-
+		
 		
         grayImage = colorImg;
 		if (bLearnBakground == true){
-			grayBg = grayImage;		// the = sign copys the pixels from grayImage into grayBg (operator overloading)
+			grayBg = grayImage;		
 			bLearnBakground = false;
 		}
-		
-		// take the abs value of the difference between background and incoming and then threshold:
+
 		grayDiff.absDiff(grayBg, grayImage);
 		grayDiff.threshold(threshold);
-		
-		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
-		// also, find holes is set to true so we will get interior contours as well....
-		contourFinder.findContours(grayDiff, 20, (340*240)/3, 10, true);	// find holes
+
+		contourFinder.findContours(grayDiff, 20, (340*240)/3, 10, true);
 	}
 	
+}
+//--------------------------------------------------------------
+void testApp::update(){
+	updateGui();
+	updateOCV();
+	fluidSolver.update();
+
 	
-	// save old mouse position (openFrameworks doesn't do this automatically like processing does)
 	pmouseX = mouseX;
 	pmouseY = mouseY;
-	
-	
 }
 
 //--------------------------------------------------------------
@@ -254,34 +230,9 @@ void testApp::draw(){
 	
 	ofDrawBitmapString(sz, 50, 50);
 
-	//----------- GUI DRAW
-	gui.draw();
-	
-	
-
-	
-//	// then draw the contours:
-//	
-//	ofFill();
-//	ofSetColor(0x333333);
-//	ofRect(360,540,320,240);
-//	ofSetColor(0xffffff);
-	
-	// we could draw the whole contour finder
-	//contourFinder.draw(360,540);
-	
-	// or, instead we can draw each blob individually,
-	// this is how to get access to them:
-	
-	//PUT THIS IN its own box
-//    for (int i = 0; i < contourFinder.nBlobs; i++){
-//        contourFinder.blobs[i].draw(360,540);
-//    }
-	
+	gui.draw();	
 }
-
 //--------------------------------------------------------------
-
 void testApp::windowResized(int w, int h) {
 	window.width		= w;
 	window.height		= h;
@@ -293,10 +244,7 @@ void testApp::windowResized(int w, int h) {
 	
 	resizeFluid = true;
 }
-
-
 #pragma mark Input callbacks
-
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
     switch(key) {
@@ -304,7 +252,7 @@ void testApp::keyPressed  (int key){
 		case ' ':
 			
 			gui.toggleView();
-			//gui.toggleDraw();	
+				
 			glClear(GL_COLOR_BUFFER_BIT);
 			break;
 
@@ -318,12 +266,9 @@ void testApp::keyPressed  (int key){
 			imgScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 			printf("Saving file: %s\n", fileNameStr);
 			imgScreen.saveImage(fileNameStr);
-			break;
-			
+			break;			
     }
 }
-
-
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
 	float mouseNormX = x * window.invWidth;
@@ -335,9 +280,7 @@ void testApp::mouseMoved(int x, int y ){
 	
 	
 }
-
 //--------------------------------------------------------------
-
 void testApp::mouseDragged(int x, int y, int button) {
 	float mouseNormX = x * window.invWidth;
     float mouseNormY = y * window.invHeight;
@@ -348,17 +291,12 @@ void testApp::mouseDragged(int x, int y, int button) {
 	
 	gui.mouseDragged(x, y, button);
 }
-
-
 //--------------------------------------------------------------
-
 void testApp::mousePressed(int x, int y, int button){
 
 	gui.mousePressed(x, y, button);
 }
-
 //--------------------------------------------------------------
-
 void testApp::mouseReleased(){
 	gui.mouseReleased();
 }
