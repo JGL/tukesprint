@@ -102,6 +102,7 @@ void Sample::normalize() {
 		data[i] *= gain;
 	}
 }
+
 void Sample::addSamples(float* out, int _length) {
 	int count = 0;
 

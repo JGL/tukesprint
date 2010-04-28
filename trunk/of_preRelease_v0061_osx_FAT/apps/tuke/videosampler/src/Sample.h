@@ -30,7 +30,7 @@ public:
 		delete [] data;
 #endif
 	}
-	void trigger(float volume);
+	virtual void trigger(float volume);
 	void getSamples(float* out, int length);
 	void addSamples(float* out, int length);
 	float getSample();

@@ -7,7 +7,11 @@
 #include "ofxControlPanel.h"
 
 #define MAX_RECORD_SECONDS 10
-#define SAMPLERATE 44100
+
+#define SAMPLERATE		44100
+
+
+#define MAX_NUM_FRAMES (MAX_RECORD_SECONDS*25)
 class testApp : public ofBaseApp{
 	
 public:
@@ -27,12 +31,15 @@ public:
 	void audioRequested (float * output, int bufferSize, int nChannels); 		
 	void audioReceived 	(float * input, int bufferSize, int nChannels); 
 	
-	
+
 	// audio recording stuff
 	float *recordBuffer;
 	int recordBufferSize;
 	int recordPos;
 	
+	// video recording stuff
+	ofVideoGrabber cam;
+	vector<unsigned char*> frames;
 	
 	// are we currently recording?
 	bool recording;
@@ -45,7 +52,8 @@ public:
 	
 	ofxControlPanel gui;
 
-	VideoSample sample;
+	vector<VideoSample*> samples;
+	int sampleInputPos;
 };
 
 #endif	
