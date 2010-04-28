@@ -6,7 +6,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){	 
-	
+	recordMode = true;
 	ofBackground(0,0,0);	
 	
 	recordBufferSize = SAMPLERATE*MAX_RECORD_SECONDS;
@@ -15,6 +15,13 @@ void testApp::setup(){
 	recording = false;
 	inputLevel = 0;
 	sampleInputPos = 0;
+	lastSamplePlayed = -1;
+	playbackSpeed = 2.5;
+	
+	recordThreshold = 0.2;
+	recordStopThreshold = 0.2;
+	minRecordTime = 0.5f;
+	
 	
 	memset(recordBuffer, 0, recordBufferSize*sizeof(float));
 	// 1 output channels, 
@@ -73,6 +80,32 @@ void testApp::update() {
 
 	}
 	gui.update();
+	
+	
+	if(recordMode) {
+		// maybe trigger recording
+		if(!recording) {
+
+			if(inputLevel>recordThreshold) {
+				printf("Start recording because %f > %f\n", inputLevel, recordThreshold);
+				startRecording();
+			}
+		} else {
+			// stop recording if the sound falls below the threshold and exceeded the
+			// minimum record time, or we've exceeded the maximum record time.
+			if(recordPos>minRecordTime*44100 && (inputLevel<recordStopThreshold || recordPos>=recordBufferSize)) {
+				stopRecording();
+			}
+		}
+	} else {
+		if(samples.size()>0) {
+			int sampleToPlay = ((int)(ofGetElapsedTimef()*playbackSpeed)) % samples.size();
+			if(sampleToPlay!=lastSamplePlayed) {
+				samples[sampleToPlay]->trigger(1);
+				lastSamplePlayed = sampleToPlay;
+			}
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -91,6 +124,11 @@ void testApp::draw(){
 	}
 	ofDisableAlphaBlending();
 	gui.draw();
+	if(recording) {
+		ofSetColor(0xFF0000);
+		ofRect(0, ofGetHeight()-20, ofGetWidth(), 20);
+		ofSetColor(0xFFFFFF);
+	}
 }
 
 
@@ -99,6 +137,7 @@ void testApp::draw(){
 
 
 void testApp::audioRequested (float * output, int bufferSize, int nChannels) {
+	
 	// if we're recording, we want silence!!
 	if(recording) {
 		memset(output, 0, bufferSize*nChannels*sizeof(float));
@@ -134,14 +173,24 @@ void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){
 			inputLevel *= 0.99995;
 		}
 	}
-
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
 	if(key=='h') gui.toggleView();
-	if(key=='f') ofToggleFullscreen();
+	else if(key=='f') ofToggleFullscreen();
+	//else startRecording();
 	
+}
+
+//--------------------------------------------------------------
+void testApp::keyReleased(int key){ 
+	
+	//stopRecording();
+}
+
+
+void testApp::startRecording() {
 	if(!recording) { // this stops that weird key repeating thing
 		recordPos = 0;
 		recording = true;
@@ -154,22 +203,26 @@ void testApp::keyPressed  (int key){
 	}
 }
 
-//--------------------------------------------------------------
-void testApp::keyReleased(int key){ 
-	
+void testApp::stopRecording() {
 	recording = false;
 	VideoSample *sample = new VideoSample();
 	sample->load(recordBuffer, recordPos);
+	//	printf("We have %d samples\n", recordPos);
+	//	float ave = 0;
+	//	for(int i = 0; i < recordPos; i++) {
+	//		ave += recordBuffer[i];
+	//	}
+	//	printf("Ave %f\n", ave/recordPos);
 	unsigned char **frameArray = new unsigned char *[frames.size()];
 	for(int i = 0; i < frames.size(); i++) {
 		frameArray[i] = frames[i];
 	}
 	
 	sample->loadFrames(frameArray, frames.size());
-	sample->normalize();
+	sample->normalize(0.5);
 	
 	// add the sample to the list if there are less than 8
-	if(samples.size()<8) {
+	if(samples.size()<MAX_VIDEOS) {
 		sampleInputPos = samples.size();
 		samples.push_back(sample);
 		
@@ -177,7 +230,7 @@ void testApp::keyReleased(int key){
 	} else {
 		
 		sampleInputPos++;
-		sampleInputPos %= 8;
+		sampleInputPos %= MAX_VIDEOS;
 		delete samples[sampleInputPos];
 		samples[sampleInputPos] = sample;
 	}
@@ -189,6 +242,7 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ) {
+	playbackSpeed = (float)x*8.f/ofGetWidth();
 }
 
 //--------------------------------------------------------------
@@ -208,6 +262,8 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
+	recordMode ^= true;
+	if(recording) stopRecording();
 	gui.mouseReleased();
 }
 

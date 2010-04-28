@@ -17,10 +17,10 @@ public:
 	VideoSample();
 	void loadFrames(unsigned char **_frames, int _frameCount);
 	~VideoSample() {
-		deallocate();
+		deallocateVideo();
 	};
 	
-	void deallocate();
+	void deallocateVideo();
 	void trigger(float volume);
 	unsigned char *getFrame();
 	

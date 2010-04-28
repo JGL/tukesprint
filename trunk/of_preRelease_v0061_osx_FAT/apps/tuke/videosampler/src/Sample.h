@@ -36,7 +36,7 @@ public:
 	float getSample();
 	float getSample(float speed);
 	void stop();
-	void normalize();
+	void normalize(float amount = 1.f);
 	bool playing;
 	
 	int length;

@@ -85,7 +85,7 @@ void Sample::getSamples(float* out, int _length) {
 	}
 }
 
-void Sample::normalize() {
+void Sample::normalize(float amount) {
 	if(data==NULL) return;
 	float max = 0;
 	for(int i = 0; i < length; i++) {
@@ -93,11 +93,16 @@ void Sample::normalize() {
 	}
 	
 	// don't want a divide by zero or any extra work
-	if(max==0 || ABS(max)==1) {
+	if(max==0 || max==1) {
 		return ;
 	}
+	
+	// if max is 1 then gain is 1 regardless of amount
+	// if max is 0 then gain is infinity regardless of amount
+	// if max is 0.5 and amount is 0.5 then gain should be 0.75
+	float newMaxVolume = (1.f - max)*amount;
 	// what do we need to multiply max by to make it 1?
-	float gain = 1.f/max;
+	float gain = newMaxVolume/max;
 	for(int i = 0; i < length; i++) {
 		data[i] *= gain;
 	}
