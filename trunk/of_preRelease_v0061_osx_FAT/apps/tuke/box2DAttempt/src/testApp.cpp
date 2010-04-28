@@ -10,6 +10,7 @@ testApp::testApp() {
 void testApp::setup() {
 	
 	
+	
 	ofSetVerticalSync(true);
 	ofBackground(20, 20, 20);
 	ofSetLogLevel(OF_LOG_NOTICE);
@@ -39,13 +40,13 @@ void testApp::setup() {
 	//lineStrip.addPoint(0,50);
 	//lineStrip.addPoint(1440,50);
 	//lineStrip.createShape();
-		//setting up the upDirection and upForce
+	//setting up the upDirection and upForce
 	upDirection.x = 20;
 	upDirection.y = 20;
 	upForce.x = 20;
 	upForce.y = 10;
 	threshold=0.01;
-
+	
 }
 
 //--------------------------------------------------------------
@@ -64,14 +65,14 @@ void testApp::update() {
 		delete customParticles[0];
 		customParticles.erase(customParticles.begin() );
 	}
-	 
+	
 }
 
 
 
 //--------------------------------------------------------------
 void testApp::draw() {
-
+	
 	for(int i=0; i<customParticles.size(); i++) {
 		customParticles[i]->draw();
 	}
@@ -100,15 +101,15 @@ void testApp::draw() {
 		myMean+=(left[i]+right[i]);
 		//ofCircle(ofGetScreenWidth()/2,ofGetScreenHeight()/2, (left[i]+right[i])*100);
 	}
-		cout << threshold<<" threshold\n";
-
+	cout << threshold<<" threshold\n";
+	
 	myMean/=256;
 	if(myMean>threshold){
 		for (int i=0; i<customParticles.size(); i++){
-
-		customParticles[i]->addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
-		customParticles[i]->addImpulseForce(upDirection.y, upForce.y);
-		
+			
+			customParticles[i]->addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
+			customParticles[i]->addImpulseForce(upDirection.y, upForce.y);
+			
 		}
 	}
 	
@@ -117,7 +118,7 @@ void testApp::draw() {
 //--------------------------------------------------------------
 void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){	
 	
-	 // samples are "interleaved"
+	// samples are "interleaved"
 	for (int i = 0; i < bufferSize; i++){
 		left[i] = input[i*2];
 		right[i] = input[i*2+1];
@@ -140,17 +141,17 @@ void testApp::keyPressed(int key) {
 	}
 	if(key == 'z') {
 		/*
-		float r = ofRandom(3, 10);		// a random radius 4px - 20px
-		CustomParticle *p = new CustomParticle();
-		//p.setPhysics(0.4, 0.53, 0.31);
-		p->setPhysics(0.9, 0.53, 0.0);
-		p.setup(box2d.getWorld(), mouseX, mouseY, r);
-		p.color.r = ofRandom(20, 100);
-		p.color.g = 0;
-		p.color.b = ofRandom(150, 255);
-		customParticles.push_back(p);*/
+		 float r = ofRandom(3, 10);		// a random radius 4px - 20px
+		 CustomParticle *p = new CustomParticle();
+		 //p.setPhysics(0.4, 0.53, 0.31);
+		 p->setPhysics(0.9, 0.53, 0.0);
+		 p.setup(box2d.getWorld(), mouseX, mouseY, r);
+		 p.color.r = ofRandom(20, 100);
+		 p.color.g = 0;
+		 p.color.b = ofRandom(150, 255);
+		 customParticles.push_back(p);*/
 	}	
-		if (key=='A' || key=='a'){
+	if (key=='A' || key=='a'){
 		for (int i=0; i<customParticles.size(); i++){
 			customParticles[i]->addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
 			customParticles[i]->addImpulseForce(upDirection.y, upForce.y);
@@ -160,9 +161,9 @@ void testApp::keyPressed(int key) {
 			
 			cout << upDirection.y<<" mymeam\n";
 			/*for (int i=0; i<customParticles.size(); i++){
-				customParticles[i].addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
-				customParticles[i].addImpulseForce(upDirection.y, upForce.y);
-			}*/
+			 customParticles[i].addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
+			 customParticles[i].addImpulseForce(upDirection.y, upForce.y);
+			 }*/
 		}
 	}
 }
@@ -178,7 +179,7 @@ void testApp::mouseMoved(int x, int y ) {
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
-
+	
 }
 
 //--------------------------------------------------------------
