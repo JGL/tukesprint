@@ -1,8 +1,9 @@
 
 #include "testApp.h"
+#include "stdio.h"
 
 //--------------------------------------------------------------
-testApp::testApp(){
+testApp::testApp() {	
 }
 
 //--------------------------------------------------------------
@@ -12,52 +13,39 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofBackground(20, 20, 20);
 	ofSetLogLevel(OF_LOG_NOTICE);
-	
+	//ofToggleFullscreen();
 	bDrawLines  = false;
 	bMouseForce = false;
 	
 	box2d.init();
-	box2d.setGravity(0, 10);
-	box2d.createFloor();
+	box2d.setGravity(0, 20);
+	
+	//this call is creating the floor at the bottom of the window; not the screen!?
+	box2d.createFloor(1440,850);
 	box2d.checkBounds(true);
 	box2d.setFPS(30.0);
 	
-	/*
-	// the joints
-	for(int i=0; i<5; i++) {
-		float x = (ofGetWidth()/2) + cos(i) * 50; 
-		float y = (50) + sin(i) * 50;
-		ballJoints[i].setPhysics(3.0, 0.53, 0.1);
-		ballJoints[i].setup(box2d.getWorld(), x, y, 10);		
-	}
-	// connect all the ball joints
-	for(int i=1; i<5; i++) {
-		joints[i].setWorld(box2d.getWorld());
-		joints[i].addJoint(ballJoints[i].body, ballJoints[i-1].body, 3.0, 0.5);
-		if(i == 4) {
-			joints[0].setWorld(box2d.getWorld());
-			joints[0].addJoint(ballJoints[4].body, ballJoints[0].body, 3.0, 0.5);
-		}
-	}
+	ofSoundStreamSetup(0,2,this, 44100, 256, 1);	
+	left = new float[256];
+	right = new float[256];
 	
-	// lets draw a simple landscape
-	ofPoint p(40, 400);
-	int segs = 50;
-	lineStrip.setWorld(box2d.getWorld());
-	lineStrip.clear();
-	for(int i=0; i<segs; i++) {
-		p.x += 15;
-		lineStrip.addPoint(p.x, p.y+sin(i*ofRandom(0.01, 0.5))*30);
-	}
-	lineStrip.createShape();
-	 */
 	
-	//setting up the upDirection and upForce
+	bufferCounter = 0;
+	drawCounter = 0;
+	
+	//lineStrip.setWorld(box2d.getWorld());
+	//lineStrip.clear();
+	
+	//lineStrip.addPoint(0,50);
+	//lineStrip.addPoint(1440,50);
+	//lineStrip.createShape();
+		//setting up the upDirection and upForce
 	upDirection.x = 20;
 	upDirection.y = 20;
 	upForce.x = 20;
-	upForce.y = 20;
-	
+	upForce.y = 10;
+	threshold=0.01;
+
 }
 
 //--------------------------------------------------------------
@@ -67,52 +55,26 @@ void testApp::update() {
 	
 	box2d.update();
 	
-	if(bMouseForce) {
-		float strength = 8.0f;
-		float damping  = 0.7f;
-		float minDis   = 100;
-		for(int i=0; i<circles.size(); i++) {
-			circles[i].addAttractionPoint(mouseX, mouseY, strength, minDis);
-			circles[i].addDamping(damping, damping);
-		}
-		for(int i=0; i<customParticles.size(); i++) {
-			customParticles[i].addAttractionPoint(mouseX, mouseY, strength, minDis);
-			customParticles[i].addDamping(damping, damping);
-			
-		}
-		
-	}
+	generateParticles();
+	//erase old particles from the vector
+	//customParticles[0].
 	
+	
+	if(customParticles.size()>100){
+		delete customParticles[0];
+		customParticles.erase(customParticles.begin() );
+	}
+	 
 }
+
 
 
 //--------------------------------------------------------------
 void testApp::draw() {
-	
-	/*
-	for(int i=0; i<circles.size(); i++) {
-		circles[i].draw();
-	}
-	for(int i=0; i<polygons.size(); i++) {
-		polygons[i].draw();
-	}
-	for(int i=0; i<boxes.size(); i++) {
-		boxes[i].draw();
-	}
-	for(int i=0; i<lines.size(); i++) {
-		lines[i].draw();
-	}*/
+
 	for(int i=0; i<customParticles.size(); i++) {
-		customParticles[i].draw();
+		customParticles[i]->draw();
 	}
-	
-	/*
-	for(int i=0; i<5; i++) ballJoints[i].draw();
-	for(int i=0; i<5; i++) joints[i].draw();
-	 */
-	
-	//lineStrip.draw();
-	box2d.draw();
 	
 	px = mouseX;
 	py = mouseY;
@@ -128,46 +90,79 @@ void testApp::draw() {
 	info += "Total Joints: "+ofToString(box2d.getJointCount())+"\n\n";
 	info += "FPS: "+ofToString(ofGetFrameRate())+"\n";
 	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(info, 30, 30);
+	//ofDrawBitmapString(info, 30, 30);
+	
+	///audio stuff
+	ofNoFill();
+	ofSetColor(255,0,0);
+	
+	for (int i = 0; i < 256; i++){
+		myMean+=(left[i]+right[i]);
+		//ofCircle(ofGetScreenWidth()/2,ofGetScreenHeight()/2, (left[i]+right[i])*100);
+	}
+		cout << threshold<<" threshold\n";
+
+	myMean/=256;
+	if(myMean>threshold){
+		for (int i=0; i<customParticles.size(); i++){
+
+		customParticles[i]->addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
+		customParticles[i]->addImpulseForce(upDirection.y, upForce.y);
+		
+		}
+	}
+	
 }
 
 //--------------------------------------------------------------
+void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){	
+	
+	 // samples are "interleaved"
+	for (int i = 0; i < bufferSize; i++){
+		left[i] = input[i*2];
+		right[i] = input[i*2+1];
+	}
+	bufferCounter++;
+	
+}
+//--------------------------------------------------------------
 void testApp::keyPressed(int key) {
 	
-	if(key == 'c') {
-		float r = ofRandom(4, 20);		// a random radius 4px - 20px
-		ofxBox2dCircle circle;
-		circle.setPhysics(3.0, 0.53, 0.1);
-		circle.setup(box2d.getWorld(), mouseX, mouseY, r);
-		circles.push_back(circle);
+	//setting the threshold...
+	if(key == 'k') {
+		threshold+=0.01;
+	}
+	if(key == 'm') {
+		threshold-=0.01;
+	}
+	if(key == 'f') {
+		ofToggleFullscreen();
 	}
 	if(key == 'z') {
+		/*
 		float r = ofRandom(3, 10);		// a random radius 4px - 20px
-		CustomParticle p;
+		CustomParticle *p = new CustomParticle();
 		//p.setPhysics(0.4, 0.53, 0.31);
-		p.setPhysics(0.4, 0.53, 0.0);
+		p->setPhysics(0.9, 0.53, 0.0);
 		p.setup(box2d.getWorld(), mouseX, mouseY, r);
 		p.color.r = ofRandom(20, 100);
 		p.color.g = 0;
 		p.color.b = ofRandom(150, 255);
-		customParticles.push_back(p);
+		customParticles.push_back(p);*/
 	}	
-	if(key == 'b') {
-		float w = ofRandom(4, 20);	
-		float h = ofRandom(4, 20);	
-		ofxBox2dRect rect;
-		rect.setPhysics(3.0, 0.53, 0.1);
-		rect.setup(box2d.getWorld(), mouseX, mouseY, w, h);
-		boxes.push_back(rect);
-	}
-	
-	if(key == 's') bDrawLines = !bDrawLines;
-	if(key == 'f') bMouseForce = !bMouseForce;
-	
-	if (key=='A' || key=='a'){
+		if (key=='A' || key=='a'){
 		for (int i=0; i<customParticles.size(); i++){
-			customParticles[i].addAttractionPoint(ofGetWidth()/2, 0, 2.0f, 10);
-			customParticles[i].addImpulseForce(-10, 0);
+			customParticles[i]->addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
+			customParticles[i]->addImpulseForce(upDirection.y, upForce.y);
+			
+			//upDirection.y=abs(myMean*200);
+			//upForce.y=abs(myMean*200);
+			
+			cout << upDirection.y<<" mymeam\n";
+			/*for (int i=0; i<customParticles.size(); i++){
+				customParticles[i].addAttractionPoint((ofGetWidth()/2,0,0), 0, 1.0f, 1);
+				customParticles[i].addImpulseForce(upDirection.y, upForce.y);
+			}*/
 		}
 	}
 }
@@ -183,19 +178,11 @@ void testApp::mouseMoved(int x, int y ) {
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
-	
-	if(bDrawLines) {
-		lineStrip.addPoint(x, y);
-	}
+
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button) {
-	
-	if(bDrawLines) {
-		lineStrip.setWorld(box2d.getWorld());
-		lineStrip.clear();
-	}
 	
 }
 
@@ -209,4 +196,19 @@ void testApp::mouseReleased(int x, int y, int button){
 void testApp::resized(int w, int h){
 	
 }
+
+void testApp::generateParticles(){
+	float r = ofRandom(3, 10);		// a random radius 4px - 20px
+	CustomParticle *p = new CustomParticle();
+	//p.setPhysics(0.4, 0.53, 0.31);
+	p->setPhysics(0.9, 0.53, 0.0);
+	//p.setup(box2d.getWorld(), ofRandom(0,ofGetWidth()),2*(ofGetHeight()/3), r);
+	p->setup(box2d.getWorld(), ofRandom(0,1440),820, r);
+	p->color.r = ofRandom(20, 100);
+	p->color.g = 0;
+	p->color.b = ofRandom(150, 255);
+	customParticles.push_back(p);
+	
+}
+
 
