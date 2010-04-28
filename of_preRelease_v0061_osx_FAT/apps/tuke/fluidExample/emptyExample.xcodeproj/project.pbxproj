@@ -59,7 +59,6 @@
 		D4D1688411884D1600E81583 /* ofxCvGrayscaleImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D1687811884D1500E81583 /* ofxCvGrayscaleImage.cpp */; };
 		D4D1688511884D1600E81583 /* ofxCvImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D1687A11884D1500E81583 /* ofxCvImage.cpp */; };
 		D4D1688611884D1600E81583 /* ofxCvShortImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D1687D11884D1500E81583 /* ofxCvShortImage.cpp */; };
-		D4D168FE1188560C00E81583 /* contourF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D168FD1188560C00E81583 /* contourF.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -285,8 +284,6 @@
 		D4D1687D11884D1500E81583 /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCvShortImage.cpp; sourceTree = "<group>"; };
 		D4D1687E11884D1500E81583 /* ofxCvShortImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCvShortImage.h; sourceTree = "<group>"; };
 		D4D1687F11884D1500E81583 /* ofxOpenCv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOpenCv.h; sourceTree = "<group>"; };
-		D4D168FC1188560C00E81583 /* contourF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourF.h; sourceTree = "<group>"; };
-		D4D168FD1188560C00E81583 /* contourF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourF.cpp; sourceTree = "<group>"; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -957,8 +954,6 @@
 				D4CC0DC11186F46600051BA0 /* ParticleSystem.h */,
 				D4CC0DC21186F46600051BA0 /* testApp.cpp */,
 				D4CC0DC31186F46600051BA0 /* testApp.h */,
-				D4D168FC1188560C00E81583 /* contourF.h */,
-				D4D168FD1188560C00E81583 /* contourF.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1174,7 +1169,6 @@
 				D4D1688411884D1600E81583 /* ofxCvGrayscaleImage.cpp in Sources */,
 				D4D1688511884D1600E81583 /* ofxCvImage.cpp in Sources */,
 				D4D1688611884D1600E81583 /* ofxCvShortImage.cpp in Sources */,
-				D4D168FE1188560C00E81583 /* contourF.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

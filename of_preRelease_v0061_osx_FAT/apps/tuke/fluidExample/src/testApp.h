@@ -24,7 +24,13 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased();
-
+	
+	void updateGui();
+	void updateOCV();
+	void setupGui();
+	void setupOCV();
+	
+	
 	void windowResized(int w, int h);
 
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
