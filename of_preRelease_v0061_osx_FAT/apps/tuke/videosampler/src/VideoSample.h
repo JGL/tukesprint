@@ -4,15 +4,12 @@
  */
 #include <stdio.h>
 #include <string>
-
+#include "ofMain.h"
 #include "Sample.h"
+#define VIDEO_WIDTH		320
+#define VIDEO_HEIGHT	240
+#pragma once
 
-#ifndef VIDEO_SAMPLE
-#define VIDEO_SAMPLE
-
-
-
-using namespace std;
 class VideoSample: public Sample {
 	
 public:
@@ -20,22 +17,20 @@ public:
 	VideoSample();
 	void loadFrames(unsigned char **_frames, int _frameCount);
 	~VideoSample() {
-		//delete [] data;
+		deallocate();
 	};
-	void dealloc() {
-#ifndef SHALLOWCOPY 
-		delete [] data;
-#endif
-	}
+	
+	void deallocate();
+	void trigger(float volume);
 	unsigned char *getFrame();
-
+	
 	int frameCount;
-
+	void draw();
+	
 private:
+	ofImage display;
 	int framePos;
 	unsigned char **frames;
 	
-	
 };
-#endif
 
