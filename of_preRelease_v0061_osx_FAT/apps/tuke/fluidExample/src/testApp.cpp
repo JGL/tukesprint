@@ -66,6 +66,7 @@ void testApp::setupGui(){
 	
 	gui.addPanel("", 8, false);
 	gui.addPanel("Tracking", 8, false);
+	gui.addPanel("Input", 8, false);
 	
 	//--------- PANEL 1
 	gui.setWhichPanel(0);
@@ -104,6 +105,16 @@ void testApp::setupGui(){
 	
 	gui.setWhichColumn(5);	
 	gui.addDrawableRect("contours", &contourFinder, 200, 150);
+
+	//--------- PANEL 3
+	gui.setWhichPanel(2);
+	gui.setWhichColumn(0);
+	vector <string> names;
+	names.push_back("mouse");
+	names.push_back("blobs");
+	names.push_back("facial_gesture");
+	names.push_back("switch");
+	gui.addTextDropDown("Input Method", "Input_Method", 0, names);
 	
 	
 	fluidCellsX			= 150;
@@ -171,6 +182,8 @@ void testApp::updateGui(){
 	fluidSolver.wrap_x = gui.getValueB("fs_wrapX");
 	fluidSolver.wrap_y = gui.getValueB("fs_wrapY");
 	
+	inputmode = gui.getValueI("Input_Method");
+	
 	if(resizeFluid) 	{
 		fluidSolver.setSize(fluidCellsX, fluidCellsX / window.aspectRatio);
 		fluidDrawer.setup(&fluidSolver);
@@ -213,11 +226,37 @@ void testApp::update(){
 	updateOCV();
 	fluidSolver.update();
 
+	//if input mode is '0' use mouse as interaction (see mouse listener)
+	if(inputmode==0){
+		pmouseX = mouseX;
+		pmouseY = mouseY;
+	}
+	//if input mode is '1' use openCV blobs as interaction
+	if(inputmode==1){
+		float mouseNormX = contourFinder.blobs[0].centroid.x * window.invWidth;
+		float mouseNormY = contourFinder.blobs[0].centroid.y * window.invHeight;
+		float mouseVelX = (contourFinder.blobs[0].centroid.x - pmouseX) * window.invWidth;
+		float mouseVelY = (contourFinder.blobs[0].centroid.y - pmouseY) * window.invHeight;
+		
+		cout << contourFinder.blobs[0].centroid.x << endl;
+		
+		addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
+		
+		pmouseX = contourFinder.blobs[0].centroid.x;
+		pmouseY = contourFinder.blobs[0].centroid.y;
+	}
 	
-	pmouseX = mouseX;
-	pmouseY = mouseY;
+	//if input mode is '2' use facial Gestures as interaction	
+	if(inputmode==2){
+//		float mouseNormX = contourFinder.blobs[0].centroid.x * window.invWidth;
+//		float mouseNormY = contourFinder.blobs[0].centroid.y * window.invHeight;
+//		float mouseVelX = (contourFinder.blobs[0].centroid.x - pmouseX) * window.invWidth;
+//		float mouseVelY = (contourFinder.blobs[0].centroid.y - pmouseY) * window.invHeight;
+//		
+//		addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
+	}
+	
 }
-
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofSetBackgroundAuto(drawFluid);
@@ -229,6 +268,12 @@ void testApp::draw(){
 	if(drawParticles) particleSystem.updateAndDraw();
 	
 	ofDrawBitmapString(sz, 50, 50);
+	char reportStr[1024];
+	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\nthreshold %i (press: +/-)\nnum blobs found %i, fps: %f", threshold, contourFinder.nBlobs, ofGetFrameRate());
+	ofPushStyle();
+	ofSetColor(0xffffff);
+	ofDrawBitmapString(reportStr, 50, 70);
+	ofPopStyle();
 
 	gui.draw();	
 }
@@ -266,28 +311,42 @@ void testApp::keyPressed  (int key){
 			imgScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 			printf("Saving file: %s\n", fileNameStr);
 			imgScreen.saveImage(fileNameStr);
-			break;			
+			break;	
+		case 'b':
+			bLearnBakground = true;
+			break;
+		case '+':
+			threshold ++;
+			if (threshold > 255) threshold = 255;
+			break;
+		case '-':
+			threshold --;
+			if (threshold < 0) threshold = 0;
+			break;
     }
 }
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
+	if(inputmode==0){
 	float mouseNormX = x * window.invWidth;
     float mouseNormY = y * window.invHeight;
     float mouseVelX = (x - pmouseX) * window.invWidth;
     float mouseVelY = (y - pmouseY) * window.invHeight;
 
     addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
-	
+	}
 	
 }
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
-	float mouseNormX = x * window.invWidth;
-    float mouseNormY = y * window.invHeight;
-    float mouseVelX = (x - pmouseX) * window.invWidth;
-    float mouseVelY = (y - pmouseY) * window.invHeight;
-	
+	if(inputmode==0){
+		float mouseNormX = x * window.invWidth;
+		float mouseNormY = y * window.invHeight;
+		float mouseVelX = (x - pmouseX) * window.invWidth;
+		float mouseVelY = (y - pmouseY) * window.invHeight;
+		
 	addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, false);
+	}
 	
 	gui.mouseDragged(x, y, button);
 }

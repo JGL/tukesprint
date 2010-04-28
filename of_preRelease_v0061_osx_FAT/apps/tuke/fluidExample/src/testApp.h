@@ -5,7 +5,6 @@
 #include "ParticleSystem.h"
 #include "ofxControlPanel.h"
 #include "customDrawer.h"
-#include "contourF.h"
 #include "ofxOpenCv.h"
 
 
@@ -34,10 +33,12 @@ public:
 	void windowResized(int w, int h);
 
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
+
 	
+	int inputmode;
 		
 	customDrawer		colorPick;
-	contourF			contDraw;
+
 
 	int					fluidCellsX;
 	bool				resizeFluid;
@@ -51,6 +52,7 @@ public:
 	ParticleSystem		particleSystem;
 	
 	int					pmouseX, pmouseY;
+
 	
 	// ----- OPEN CV STUFF
 	ofVideoGrabber 		vidGrabber;
