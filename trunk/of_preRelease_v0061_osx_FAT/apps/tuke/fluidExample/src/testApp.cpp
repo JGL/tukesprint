@@ -20,7 +20,7 @@ void fadeToColor(float r, float g, float b, float speed) {
 //--------------------------------------------------------------
 void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce) {
     float speed = dx * dx  + dy * dy * window.aspectRatio2;    // balance the x and y components of speed with the screen aspect ratio
-	printf("%f, %f\n", dx, dy);
+	//printf("%f, %f\n", dx, dy);
     if(speed > 0) {
         if(x<0) x = 0; 
         else if(x>1) x = 1;
@@ -59,7 +59,7 @@ char sz[] = "ofxMSAFluid Demo | (c) 2009 Mehmet Akten | www.memo.tv";
 void testApp::setupGui(){
 	//---------- PANEL
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
-	ofxControlPanel::setTextColor(simpleColor(240, 50, 50, 255));
+	ofxControlPanel::setTextColor(simpleColor(VISION_HEIGHT, 50, 50, 255));
 	
 	gui.loadFont("MONACO.TTF", 8);		
 	gui.setup("fluidExample", 0, 0, 900, 440);
@@ -100,11 +100,12 @@ void testApp::setupGui(){
 	gui.addDrawableRect("grayImg", &grayImage, 200, 150);
 	
 	gui.setWhichColumn(3);
-	gui.addDrawableRect("grayBg", &grayBg, 200, 150);
-	gui.addDrawableRect("grayDiff", &grayDiff, 200, 150);
+	gui.addDrawableRect("flow", &flow, 200, 150);
+	gui.addSlider("optical flow smoothing", "opticalflowBlur", 1, 1, 6, true);
+//	gui.addDrawableRect("grayDiff", &grayDiff, 200, 150);
 	
-	gui.setWhichColumn(5);	
-	gui.addDrawableRect("contours", &contourFinder, 200, 150);
+//	gui.setWhichColumn(5);	
+//	gui.addDrawableRect("contours", &contourFinder, 200, 150);
 
 	//--------- PANEL 3
 	gui.setWhichPanel(2);
@@ -128,20 +129,25 @@ void testApp::setupGui(){
 	fluidSolver.doRGB = true;
 	gui.setValueB("fs_doRGB", 1, 0);
 	resizeFluid			= true;
+	gui.loadSettings("guiSettings.xml");
 	
 }
+
+void testApp::exit() {
+	gui.saveSettings("guiSettings.xml");
+}
+
 //--------------------------------------------------------------
 void testApp::setupOCV(){
 	//openCV things
 	vidGrabber.setVerbose(true);
-	vidGrabber.initGrabber(320,240);
-	colorImg.allocate(320,240);
-	grayImage.allocate(320,240);
-	grayBg.allocate(320,240);
-	grayDiff.allocate(320,240);
+	vidGrabber.initGrabber(VISION_WIDTH,VISION_HEIGHT);
+	colorImg.allocate(VISION_WIDTH,VISION_HEIGHT);
+	grayImage.allocate(VISION_WIDTH,VISION_HEIGHT);
+	grayLast.allocate(VISION_WIDTH,VISION_HEIGHT);
+	flow.allocate(VISION_WIDTH,VISION_HEIGHT);
+
 	
-	bLearnBakground = true;
-	threshold = 80;
 }
 //--------------------------------------------------------------
 void testApp::setup() {	 
@@ -204,26 +210,54 @@ void testApp::updateOCV(){
 	
 	if (bNewFrame){
 		
-		colorImg.setFromPixels(vidGrabber.getPixels(), 320,240);
+		colorImg.setFromPixels(vidGrabber.getPixels(), VISION_WIDTH,VISION_HEIGHT);
 		
-		
+		colorImg.mirror(false, true);
         grayImage = colorImg;
-		if (bLearnBakground == true){
-			grayBg = grayImage;		
-			bLearnBakground = false;
-		}
-
-		grayDiff.absDiff(grayBg, grayImage);
-		grayDiff.threshold(threshold);
-
-		contourFinder.findContours(grayDiff, 20, (340*240)/3, 10, true);
-	}
-	
+		
+		flow.calc(grayLast, grayImage, 7);
+		flow.filter(gui.getValueF("opticalflowBlur"));
+		grayLast = grayImage;
+	}	
 }
+
+void testApp::opticalFlowToFluid() {
+	
+	int x, y;
+	float dx, dy;
+	
+	float iw			= 1.0f/flow.captureWidth;
+	float iy			= 1.0f/flow.captureHeight;
+	
+	int particleEmitCounter = 0;
+	float flowThreshold = 100;
+	float opticalFlowFluidMult = 0.001;
+	float multX = (float)ofGetWidth()/flow.captureWidth;
+	float multY = (float)ofGetHeight()/flow.captureHeight;
+	
+	for ( y = 0; y < flow.captureHeight; y+=flow.captureRowsStep ){
+		for ( x = 0; x < flow.captureWidth; x+=flow.captureColsStep ){
+			
+			dx = cvGetReal2D( flow.vel_x, y, x );
+			dy = cvGetReal2D( flow.vel_y, y, x );
+			if(dx*dx+dy*dy > flowThreshold) {
+//				printf("%f %f\n", (float)x, (float)y);
+				addToFluid((float)x/flow.captureWidth, (float)y/flow.captureHeight, dx*opticalFlowFluidMult, dy*opticalFlowFluidMult);//, bool addColor = true, bool addForce = true);
+				//fluid->addForceAtPos(x * iw, y * iy, dx * opticalFlowFluidMult, dy * opticalFlowFluidMult);
+				/*particleEmitCounter++;
+				if(particleEmitCounter % (globals.cube2.emitSkipFrames+1) == 0) {
+					globals.physics.addParticle(new Cube2(x * iw * ofGetWidth(), y * iy * ofGetHeight(), 0.0f, dx * globals.cube2.camVelMult, dy * globals.cube2.camVelMult));
+				}*/
+			}
+		}
+	}
+}
+
 //--------------------------------------------------------------
 void testApp::update(){
 	updateGui();
 	updateOCV();
+	opticalFlowToFluid();
 	fluidSolver.update();
 
 	//if input mode is '0' use mouse as interaction (see mouse listener)
@@ -233,17 +267,7 @@ void testApp::update(){
 	}
 	//if input mode is '1' use openCV blobs as interaction
 	if(inputmode==1){
-		float mouseNormX = contourFinder.blobs[0].centroid.x * window.invWidth;
-		float mouseNormY = contourFinder.blobs[0].centroid.y * window.invHeight;
-		float mouseVelX = (contourFinder.blobs[0].centroid.x - pmouseX) * window.invWidth;
-		float mouseVelY = (contourFinder.blobs[0].centroid.y - pmouseY) * window.invHeight;
 		
-		cout << contourFinder.blobs[0].centroid.x << endl;
-		
-		addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
-		
-		pmouseX = contourFinder.blobs[0].centroid.x;
-		pmouseY = contourFinder.blobs[0].centroid.y;
 	}
 	
 	//if input mode is '2' use facial Gestures as interaction	
@@ -267,14 +291,15 @@ void testApp::draw(){
 	}
 	if(drawParticles) particleSystem.updateAndDraw();
 	
-	ofDrawBitmapString(sz, 50, 50);
+	/*ofDrawBitmapString(sz, 50, 50);
 	char reportStr[1024];
-	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\nthreshold %i (press: +/-)\nnum blobs found %i, fps: %f", threshold, contourFinder.nBlobs, ofGetFrameRate());
+	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\n (press: +/-)\nnum blobs found %i, fps: %f", contourFinder.nBlobs, ofGetFrameRate());
 	ofPushStyle();
 	ofSetColor(0xffffff);
 	ofDrawBitmapString(reportStr, 50, 70);
-	ofPopStyle();
+	ofPopStyle();*/
 
+	//flow.draw(0, 0, ofGetWidth(), ofGetHeight());
 	gui.draw();	
 }
 //--------------------------------------------------------------
@@ -312,17 +337,6 @@ void testApp::keyPressed  (int key){
 			printf("Saving file: %s\n", fileNameStr);
 			imgScreen.saveImage(fileNameStr);
 			break;	
-		case 'b':
-			bLearnBakground = true;
-			break;
-		case '+':
-			threshold ++;
-			if (threshold > 255) threshold = 255;
-			break;
-		case '-':
-			threshold --;
-			if (threshold < 0) threshold = 0;
-			break;
     }
 }
 //--------------------------------------------------------------
