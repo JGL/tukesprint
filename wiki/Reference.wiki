@@ -44,3 +44,6 @@ http://code.google.com/p/vanderlin/
 OFX MSA Fluid
 
 http://code.google.com/p/ofxmsaof/
+
+Macam (PS3 Eye) Driver for mac
+http://ideo-rptvmultitouch.googlecode.com/files/macam-for-multi-ps3eye.zip
