@@ -44,7 +44,10 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void resized(int w, int h);
-	
+	void audioReceived 	(float * input, int bufferSize, int nChannels); 
+	void generateParticles();
+
+
 	float px, py;
 	bool							bDrawLines;
 	bool							bMouseForce;
@@ -54,7 +57,7 @@ public:
 	vector		<ofxBox2dPolygon>	polygons;		  //	defalut box2d polgons
 	vector		<ofxBox2dRect>		boxes;			  //	defalut box2d rects
 	vector      <ofxBox2dLine>		lines;			  //	default box2d lines (hacked)
-	vector		<CustomParticle>	customParticles;  //	this is a custom particle the extends a cirlce
+	vector		<CustomParticle*>	customParticles;  //	this is a custom particle the extends a cirlce
 	
 	ofxBox2dCircle					ballJoints[5];	  //	ball joints
 	ofxBox2dJoint					joints[5];		  //	box2d joints
@@ -63,6 +66,15 @@ public:
 	
 	ofPoint upDirection;
 	ofPoint upForce;
+		
+	float * left;
+	float * right;
+	int 	bufferCounter;
+	int 	drawCounter;
+	
+	float myMean;
+	float threshold;
+	
 	
 };
 
