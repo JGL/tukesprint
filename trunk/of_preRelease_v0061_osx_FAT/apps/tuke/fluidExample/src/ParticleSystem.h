@@ -21,6 +21,7 @@ public:
 	
     int curIndex;
 	
+	int numberOfParticleBirths;
     Particle particles[MAX_PARTICLES];
 	
     ParticleSystem();
