@@ -164,7 +164,9 @@ void testApp::draw(){
 		for(int j = 0; j <3;  j++){
 			glPushMatrix();
 			glTranslatef(i*drawWidth, j*drawHeight, 0);
-			samples[sampleRef]->draw(drawWidth, drawHeight);
+			if(sampleRef < samples.size()){
+				samples[sampleRef]->draw(drawWidth, drawHeight);				
+			} 
 			glPopMatrix();
 			sampleRef++;
 		}
