@@ -59,6 +59,13 @@ void testApp::setup(){
 	gui.hide();
 	
 	cam.initGrabber(VIDEO_WIDTH, VIDEO_HEIGHT);
+	
+		//blink detect by joel
+	
+	colorImg.allocate(VIDEO_WIDTH,VIDEO_HEIGHT);
+	grayImage.allocate(VIDEO_WIDTH,VIDEO_HEIGHT);
+	RImage_pixels = new RImage<float>(VIDEO_WIDTH, VIDEO_HEIGHT);
+	fo = NULL;
 
 }
 void testApp::exit() {
@@ -67,6 +74,24 @@ void testApp::exit() {
 
 void testApp::update() {
 	cam.grabFrame();
+	
+    bool bNewFrame = false;
+	
+	bNewFrame = cam.isFrameNew();
+	
+	if (bNewFrame){
+		
+		colorImg.setFromPixels(cam.getPixels(), VIDEO_WIDTH,VIDEO_HEIGHT);
+		
+        grayImage = colorImg;
+        int totalDetectionPixels = VIDEO_WIDTH*VIDEO_HEIGHT;
+        unsigned char * detectionPixels = grayImage.getPixels();
+        for (int i = 0; i < totalDetectionPixels; i++){
+			RImage_pixels->array[i] = detectionPixels[i];
+		}
+		
+        detectBlink(VIDEO_WIDTH, VIDEO_HEIGHT, (*RImage_pixels));
+	}	
 	
 	if(recording) {
 		// capture frame if there's space
@@ -86,16 +111,32 @@ void testApp::update() {
 		// maybe trigger recording
 		if(!recording) {
 
-			if(inputLevel>recordThreshold) {
-				printf("Start recording because %f > %f\n", inputLevel, recordThreshold);
-				startRecording();
+//			if(inputLevel>recordThreshold) {
+//				printf("Start recording because %f > %f\n", inputLevel, recordThreshold);
+//				startRecording();
+//			}
+			
+				//not using audio triggering any more, just triggering via blinks
+			
+			if(fo){
+					//we have a non null face object
+				if(fo->activation < -20){
+					startRecording();
+				}
 			}
+				
 		} else {
 			// stop recording if the sound falls below the threshold and exceeded the
 			// minimum record time, or we've exceeded the maximum record time.
-			if(recordPos>minRecordTime*44100 && (inputLevel<recordStopThreshold || recordPos>=recordBufferSize)) {
+//			if(recordPos>minRecordTime*44100 && (inputLevel<recordStopThreshold || recordPos>=recordBufferSize)) {
+//				stopRecording();
+//			}
+			
+				// stop recording if we get another blink and exceeded the
+				// minimum record time, or we've exceeded the maximum record time.
+			if(recordPos>minRecordTime*44100 && ((fo && (fo->activation < -20))|| recordPos>=recordBufferSize)) {
 				stopRecording();
-			}
+			}			
 		}
 	} else {
 		if(samples.size()>0) {
@@ -113,15 +154,22 @@ void testApp::draw(){
 	ofEnableAlphaBlending();
 
 	cam.draw(0, 0, ofGetWidth(), ofGetHeight());
-
-	for(int i = 0; i < samples.size(); i++) {
-		glPushMatrix();
-		int y = VIDEO_HEIGHT * (i / 4);
-		int x = VIDEO_WIDTH  * (i % 4);
-		glTranslatef(x, y, 0);
-		samples[i]->draw();
-		glPopMatrix();
+	
+	float drawWidth = ofGetWidth()/3.f;
+	float drawHeight = (drawWidth / 4.f ) * 3.f; //keeping the proportions right
+	
+	int sampleRef = 0;
+	
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j <3;  j++){
+			glPushMatrix();
+			glTranslatef(i*drawWidth, j*drawHeight, 0);
+			samples[sampleRef]->draw(drawWidth, drawHeight);
+			glPopMatrix();
+			sampleRef++;
+		}
 	}
+
 	ofDisableAlphaBlending();
 	gui.draw();
 	if(recording) {
@@ -270,4 +318,33 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
 
+}
+
+void testApp::detectBlink(int camWidth, int camHeight,  const RImage<float> &pixels)
+{
+		//faces.clear();
+	blink.findBlinks(pixels, faces); // mpisearch.search(pixels, faces, 1);
+	if(faces.size() != 0) {
+		float maxSize=0;
+		while(!faces.empty( ))
+		{
+				//Square face = faces.front();
+			VisualObject* face = faces.front();
+			cout << "openness: "
+			<< face->activation;
+			if(face->activation > 5)
+				cout << ", predicting open ";
+			if(face->activation < -5)
+				cout << ", predicting closed ";
+			cout << endl;
+			if(face->xSize>maxSize){
+				fo = static_cast<FaceObject*>(face);
+				maxSize=face->xSize;
+			}
+			
+			faces.pop_front();
+		}
+		
+	}	
+	
 }
