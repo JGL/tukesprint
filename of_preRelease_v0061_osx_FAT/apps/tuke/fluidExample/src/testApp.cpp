@@ -67,7 +67,7 @@ void testApp::setupGui(){
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(VISION_HEIGHT, 50, 50, 255));
 	
-	gui.loadFont("Kai.ttf", 8);		
+	gui.loadFont("Kai.ttf", 10);		
 	gui.setup("fluidExample", 0, 0, 900, 440);
 	
 	gui.addPanel("", 8, false);
