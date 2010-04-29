@@ -40,7 +40,7 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 			fluidSolver.r[index]  += colorPick.col.r;
 			fluidSolver.g[index]  += colorPick.col.g;
 			fluidSolver.b[index]  += colorPick.col.b;
-				
+
 			if(drawParticles) particleSystem.addParticles(x * window.width, y * window.height, 10);
 		}
 		
@@ -78,7 +78,14 @@ void testApp::setupGui(){
 	gui.addSlider("fs.colorDiffusion", "fs_colorDiffusion", 0.0003, 0.0, 0.01, false);
 	gui.addSlider("fs.fadeSpeed", "fs_fadeSpeed", 0.1, 0.0, 0.5, false);
 	gui.addSlider("fs.solverIterations", "fs_solverIterations", 1, 1, 20, true);
-	gui.addSlider("fd.drawMode", "fd_drawMode", 1, 0, FLUID_DRAW_MODE_COUNT-1, true);
+	//gui.addSlider("fd.drawMode", "fd_drawMode", 1, 0, FLUID_DRAW_MODE_COUNT-1, true);
+	vector <string> modes;
+	modes.push_back("FLUID_DRAW_COLOR");
+	modes.push_back("FLUID_DRAW_MOTION");
+	modes.push_back("FLUID_DRAW_SPEED");
+	modes.push_back("FLUID_DRAW_VECTORS");
+	
+	gui.addTextDropDown("fd.drawMode", "fd_drawMode", 0, modes);
 	
 	gui.setWhichColumn(1);
 	gui.addToggle("fs.doRGB", "fs_doRGB", 0);
@@ -102,19 +109,15 @@ void testApp::setupGui(){
 	gui.setWhichColumn(3);
 	gui.addDrawableRect("flow", &flow, 200, 150);
 	gui.addSlider("optical flow smoothing", "opticalflowBlur", 1, 1, 6, true);
-//	gui.addDrawableRect("grayDiff", &grayDiff, 200, 150);
-	
-//	gui.setWhichColumn(5);	
-//	gui.addDrawableRect("contours", &contourFinder, 200, 150);
+
 
 	//--------- PANEL 3
 	gui.setWhichPanel(2);
 	gui.setWhichColumn(0);
 	vector <string> names;
 	names.push_back("mouse");
-	names.push_back("blobs");
-	names.push_back("facial_gesture");
-	names.push_back("switch");
+	names.push_back("flow");
+
 	gui.addTextDropDown("Input Method", "Input_Method", 0, names);
 	
 	
@@ -132,11 +135,10 @@ void testApp::setupGui(){
 	gui.loadSettings("guiSettings.xml");
 	
 }
-
+//--------------------------------------------------------------
 void testApp::exit() {
 	gui.saveSettings("guiSettings.xml");
 }
-
 //--------------------------------------------------------------
 void testApp::setupOCV(){
 	//openCV things
@@ -157,6 +159,7 @@ void testApp::setup() {
 	
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
+
     fluidSolver.enableRGB(true).setFadeSpeed(0.002).setDeltaT(0.5).setVisc(0.00015).setColorDiffusion(0);
 	fluidDrawer.setup(&fluidSolver);
 	
@@ -220,7 +223,7 @@ void testApp::updateOCV(){
 		grayLast = grayImage;
 	}	
 }
-
+//--------------------------------------------------------------
 void testApp::opticalFlowToFluid() {
 	
 	int x, y;
@@ -241,7 +244,7 @@ void testApp::opticalFlowToFluid() {
 			dx = cvGetReal2D( flow.vel_x, y, x );
 			dy = cvGetReal2D( flow.vel_y, y, x );
 			if(dx*dx+dy*dy > flowThreshold) {
-//				printf("%f %f\n", (float)x, (float)y);
+
 				addToFluid((float)x/flow.captureWidth, (float)y/flow.captureHeight, dx*opticalFlowFluidMult, dy*opticalFlowFluidMult);//, bool addColor = true, bool addForce = true);
 				//fluid->addForceAtPos(x * iw, y * iy, dx * opticalFlowFluidMult, dy * opticalFlowFluidMult);
 				/*particleEmitCounter++;
@@ -252,12 +255,11 @@ void testApp::opticalFlowToFluid() {
 		}
 	}
 }
-
 //--------------------------------------------------------------
 void testApp::update(){
 	updateGui();
 	updateOCV();
-	opticalFlowToFluid();
+	
 	fluidSolver.update();
 
 	//if input mode is '0' use mouse as interaction (see mouse listener)
@@ -265,19 +267,14 @@ void testApp::update(){
 		pmouseX = mouseX;
 		pmouseY = mouseY;
 	}
-	//if input mode is '1' use openCV blobs as interaction
+	//if input mode is '1' use optical flow as interaction
 	if(inputmode==1){
-		
+		opticalFlowToFluid();
 	}
 	
 	//if input mode is '2' use facial Gestures as interaction	
 	if(inputmode==2){
-//		float mouseNormX = contourFinder.blobs[0].centroid.x * window.invWidth;
-//		float mouseNormY = contourFinder.blobs[0].centroid.y * window.invHeight;
-//		float mouseVelX = (contourFinder.blobs[0].centroid.x - pmouseX) * window.invWidth;
-//		float mouseVelY = (contourFinder.blobs[0].centroid.y - pmouseY) * window.invHeight;
-//		
-//		addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
+
 	}
 	
 }
@@ -286,21 +283,16 @@ void testApp::draw(){
 	ofSetBackgroundAuto(drawFluid);
 	
 	if(drawFluid) {
-		glColor3f(1, 1, 1);
 		fluidDrawer.draw(0, 0, window.width, window.height);
 	}
-	if(drawParticles) particleSystem.updateAndDraw();
 	
-	/*ofDrawBitmapString(sz, 50, 50);
-	char reportStr[1024];
-	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\n (press: +/-)\nnum blobs found %i, fps: %f", contourFinder.nBlobs, ofGetFrameRate());
-	ofPushStyle();
-	ofSetColor(0xffffff);
-	ofDrawBitmapString(reportStr, 50, 70);
-	ofPopStyle();*/
+	if(drawParticles) particleSystem.updateAndDraw();
 
-	//flow.draw(0, 0, ofGetWidth(), ofGetHeight());
+	ofPushStyle();
+	
 	gui.draw();	
+		
+	ofPopStyle();
 }
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h) {
@@ -331,7 +323,7 @@ void testApp::keyPressed  (int key){
 			break;
 		case 's':
 			static char fileNameStr[255];
-			sprintf(fileNameStr, "output_%0.4i.png", ofGetFrameNum());
+			sprintf(fileNameStr, "output_%i.png", ofGetFrameNum());
 			static ofImage imgScreen;
 			imgScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
 			printf("Saving file: %s\n", fileNameStr);

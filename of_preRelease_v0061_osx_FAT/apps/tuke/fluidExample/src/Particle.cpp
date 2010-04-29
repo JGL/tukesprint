@@ -15,9 +15,6 @@
 #define MOMENTUM		0.5
 #define FLUID_FORCE		0.6
 
-
-
-
 void Particle::init(float x, float y) {
 	this->x = x;
 	this->y = y;
@@ -120,4 +117,6 @@ void Particle::drawOldSchool() {
 	glColor3f(alpha, alpha, alpha);
 	glVertex2f(x-vx, y-vy);
 	glVertex2f(x, y);
+	
+
 }
