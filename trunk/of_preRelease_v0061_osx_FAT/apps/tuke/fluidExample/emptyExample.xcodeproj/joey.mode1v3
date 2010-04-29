@@ -271,7 +271,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>24</integer>
+									<integer>23</integer>
 									<integer>12</integer>
 									<integer>0</integer>
 								</array>
@@ -296,7 +296,7 @@
 							<real>258</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>53 59 1113 819 0 0 1440 878 </string>
+						<string>-1 59 1113 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -314,7 +314,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>testApp.h</string>
+								<string>testApp.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,11 +322,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>testApp.h</string>
+										<string>testApp.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>D4427A8C1189ED6D00D84154</string>
+										<string>D4427A941189EE9300D84154</string>
 										<key>history</key>
 										<array>
 											<string>D4CC0DDF1186F4D200051BA0</string>
@@ -358,8 +358,8 @@
 											<string>D4427A3C1189E56300D84154</string>
 											<string>D4427A3D1189E56300D84154</string>
 											<string>D4427A3E1189E56300D84154</string>
-											<string>D4427A8A1189ED6D00D84154</string>
-											<string>D4427A8B1189ED6D00D84154</string>
+											<string>D4427A921189EE9300D84154</string>
+											<string>D4427A931189EE9300D84154</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -373,7 +373,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {833, 773}}</string>
 								<key>RubberWindowFrame</key>
-								<string>53 59 1113 819 0 0 1440 878 </string>
+								<string>-1 59 1113 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -393,7 +393,7 @@
 								<key>Frame</key>
 								<string>{{0, 778}, {833, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>53 59 1113 819 0 0 1440 878 </string>
+								<string>-1 59 1113 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -557,7 +557,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>D4427A8D1189ED6D00D84154</string>
+		<string>D4427A951189EE9300D84154</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>D44278D211898A6700D84154</string>
 		<string>D44278D311898A6700D84154</string>
@@ -567,7 +567,7 @@
 		<string>/Users/joey/Documents/tukePrj/of_preRelease_v0061_osx_FAT/apps/tuke/fluidExample/emptyExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>53 59 1113 819 0 0 1440 878 </string>
+	<string>-1 59 1113 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
