@@ -1,5 +1,5 @@
 <fluid_CellsX>
-    <val_0>93.888893</val_0>
+    <val_0>39.000000</val_0>
 </fluid_CellsX>
 <resize_Fluid>
     <val_0>0.000000</val_0>
@@ -14,7 +14,7 @@
     <val_0>0.002778</val_0>
 </fs_fadeSpeed>
 <fs_solverIterations>
-    <val_0>7.755556</val_0>
+    <val_0>13.244445</val_0>
 </fs_solverIterations>
 <fd_drawMode>
     <val_0>3.000000</val_0>
@@ -29,16 +29,16 @@
     <val_0>1.000000</val_0>
 </draw_Fluid>
 <draw_Particles>
-    <val_0>0.000000</val_0>
+    <val_0>1.000000</val_0>
 </draw_Particles>
 <render_UsingVA>
-    <val_0>1.000000</val_0>
+    <val_0>0.000000</val_0>
 </render_UsingVA>
 <fs_wrapX>
     <val_0>0.000000</val_0>
 </fs_wrapX>
 <fs_wrapY>
-    <val_0>1.000000</val_0>
+    <val_0>0.000000</val_0>
 </fs_wrapY>
 <opticalflowBlur>
     <val_0>5.333333</val_0>

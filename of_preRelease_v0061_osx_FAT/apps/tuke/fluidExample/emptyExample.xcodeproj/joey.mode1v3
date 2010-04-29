@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -273,6 +271,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>24</integer>
+									<integer>12</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -296,7 +296,7 @@
 							<real>258</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>-4 59 1113 819 0 0 1440 878 </string>
+						<string>53 59 1113 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -307,12 +307,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>testApp.cpp</string>
+								<string>testApp.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -320,11 +322,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>testApp.cpp</string>
+										<string>testApp.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>D4427A6B1189E99D00D84154</string>
+										<string>D4427A8C1189ED6D00D84154</string>
 										<key>history</key>
 										<array>
 											<string>D4CC0DDF1186F4D200051BA0</string>
@@ -348,7 +350,6 @@
 											<string>D44278EE11899E1500D84154</string>
 											<string>D44278F811899FC500D84154</string>
 											<string>D44279941189C01D00D84154</string>
-											<string>D44279DC1189DD2F00D84154</string>
 											<string>D4427A181189E2B400D84154</string>
 											<string>D4427A191189E2B400D84154</string>
 											<string>D4427A1A1189E2B400D84154</string>
@@ -357,7 +358,8 @@
 											<string>D4427A3C1189E56300D84154</string>
 											<string>D4427A3D1189E56300D84154</string>
 											<string>D4427A3E1189E56300D84154</string>
-											<string>D4427A3F1189E56300D84154</string>
+											<string>D4427A8A1189ED6D00D84154</string>
+											<string>D4427A8B1189ED6D00D84154</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -369,14 +371,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {833, 719}}</string>
+								<string>{{0, 0}, {833, 773}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-4 59 1113 819 0 0 1440 878 </string>
+								<string>53 59 1113 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>719pt</string>
+							<string>773pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -389,14 +391,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 724}, {833, 54}}</string>
+								<string>{{0, 778}, {833, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>-4 59 1113 819 0 0 1440 878 </string>
+								<string>53 59 1113 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>54pt</string>
+							<string>0pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -555,6 +557,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>D4427A8D1189ED6D00D84154</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>D44278D211898A6700D84154</string>
 		<string>D44278D311898A6700D84154</string>
@@ -564,7 +567,7 @@
 		<string>/Users/joey/Documents/tukePrj/of_preRelease_v0061_osx_FAT/apps/tuke/fluidExample/emptyExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>-4 59 1113 819 0 0 1440 878 </string>
+	<string>53 59 1113 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

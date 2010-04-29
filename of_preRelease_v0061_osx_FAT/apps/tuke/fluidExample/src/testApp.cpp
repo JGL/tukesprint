@@ -32,6 +32,10 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		
         int index = fluidSolver.getIndexForNormalizedPosition(x, y);
 		
+		if(sample[SAMPLE].getIsPlaying()==false){
+			sample[SAMPLE].play();
+		}
+		
 		if(addColor) {
 			msaColor drawColor;
 	
@@ -52,7 +56,7 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		if(!drawFluid && ofGetFrameNum()%5 ==0) fadeToColor(0, 0, 0, 0.1);
     }
 	
-	sample[1].play();
+	
 }
 //--------------------------------------------------------------
 #pragma mark App callbacks
@@ -63,7 +67,7 @@ void testApp::setupGui(){
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(VISION_HEIGHT, 50, 50, 255));
 	
-	gui.loadFont("koz.ttf", 8);		
+	gui.loadFont("Kai.ttf", 8);		
 	gui.setup("fluidExample", 0, 0, 900, 440);
 	
 	gui.addPanel("", 8, false);
@@ -269,9 +273,9 @@ void testApp::update(){
 	fluidSolver.update();
 	//average speed in fluid is used to decay the volume  of the sample
 	//sample is triggered in addfluid function.
-	sample[1].setVolume(fluidSolver._avgSpeed*10000);
+	sample[SAMPLE].setVolume(fluidSolver._avgSpeed*10000);
 
-	sample[1].setSpeed(1.0-((float)mouseY/(float)ofGetHeight()));
+	sample[SAMPLE].setSpeed(1.0-((float)mouseY/(float)ofGetHeight()));
 
 	
 	
