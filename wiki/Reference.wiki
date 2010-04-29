@@ -47,3 +47,9 @@ http://code.google.com/p/ofxmsaof/
 
 Macam (PS3 Eye) Driver for mac
 http://ideo-rptvmultitouch.googlecode.com/files/macam-for-multi-ps3eye.zip
+
+Link to the Vimeo for Willow Dene School, showing use of switchs to control bubble blower, vocal samples, and a screen based interaction, among other areas
+http://vimeo.com/user1441704
+
+Mick Donegan talked about MAAVIS, a Firefox based simple HTML interface for controlling media playback. Shows examples of common visual symbols used within SEN sector:
+http://www.assembla.com/wiki/show/maavis
