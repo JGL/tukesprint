@@ -51,6 +51,8 @@ public:
 	ParticleSystem		particleSystem;
 	
 	int					pmouseX, pmouseY;
+	
+	ofSoundPlayer sample[3];
 
 	
 	// ----- OPEN CV STUFF

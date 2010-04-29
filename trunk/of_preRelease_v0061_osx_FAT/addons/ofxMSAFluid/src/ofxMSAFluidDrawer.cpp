@@ -289,7 +289,7 @@ void ofxMSAFluidDrawer::drawVectors(float x, float y, float renderWidth, float r
 
 	ofPoint vel;
 	glEnable(GL_LINE_SMOOTH);
-	glLineWidth(1);
+	glLineWidth(0.1);
 	for (int j=0; j<fh-2; j++ ){
 		for (int i=0; i<fw-2; i++ ){
 			_fluidSolver->getInfoAtCell(i+1, j+1, &vel, NULL);
