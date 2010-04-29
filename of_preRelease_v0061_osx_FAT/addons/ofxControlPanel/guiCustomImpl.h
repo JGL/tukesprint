@@ -29,4 +29,5 @@ class guiCustomImpl{
         bool mouseIsRelative;
 		
 		ofRectangle boundingRect;
+		string name;
 };

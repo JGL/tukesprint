@@ -1,24 +1,33 @@
 <learnSpeed>
-    <val_0>0.344444</val_0>
+    <val_0>0.500000</val_0>
 </learnSpeed>
 <levels>
-    <val_0>14.583333</val_0>
+    <val_0>16.250000</val_0>
 </levels>
-<vertical>
-    <val_0>1.000000</val_0>
-</vertical>
-<camSensitivity>
-    <val_0>0.100000</val_0>
-</camSensitivity>
+<Pitch>
+    <val_0>0.000000</val_0>
+</Pitch>
+<scale>
+    <val_0>0.000000</val_0>
+</scale>
 <volumeSensitivity>
     <val_0>0.100000</val_0>
 </volumeSensitivity>
 <movementThreshold>
     <val_0>0.100000</val_0>
 </movementThreshold>
-<loopSound>
+<sound>
     <val_0>0.000000</val_0>
-</loopSound>
-<loopDuration>
-    <val_0>1.000000</val_0>
-</loopDuration>
+</sound>
+<starPoints>
+    <val_0>100.000000</val_0>
+</starPoints>
+<starSize>
+    <val_0>13.222222</val_0>
+</starSize>
+<starSpeed>
+    <val_0>41.166664</val_0>
+</starSpeed>
+<starMaxAge>
+    <val_0>34.277779</val_0>
+</starMaxAge>

@@ -354,7 +354,7 @@ guiTypeVideo * ofxControlPanel::addVideoRect(string name, ofVideoPlayer * drawab
 guiTypeCustom * ofxControlPanel::addCustomRect(string name, guiCustomImpl * customPtr, int drawW, int drawH){
     if( currentPanel < 0 || currentPanel >= (int) panels.size() )return NULL;
     guiTypeCustom * custom = new guiTypeCustom();
-
+	customPtr->name = name;
 	setLayoutFlag(custom);
 
     custom->setup(name, customPtr, drawW, drawH);
