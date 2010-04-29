@@ -9,7 +9,7 @@
 #include "ofxCvOpticalFlowLK.h"
 
 #define USE_GUI		
-
+#define SAMPLE 2
 #define VISION_WIDTH  320
 #define VISION_HEIGHT 240
 
