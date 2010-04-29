@@ -51,6 +51,8 @@ void testApp::addToFluid(float x, float y, float dx, float dy, bool addColor, bo
 		
 		if(!drawFluid && ofGetFrameNum()%5 ==0) fadeToColor(0, 0, 0, 0.1);
     }
+	
+	sample[1].play();
 }
 //--------------------------------------------------------------
 #pragma mark App callbacks
@@ -61,7 +63,7 @@ void testApp::setupGui(){
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(VISION_HEIGHT, 50, 50, 255));
 	
-	gui.loadFont("MONACO.TTF", 8);		
+	gui.loadFont("koz.ttf", 8);		
 	gui.setup("fluidExample", 0, 0, 900, 440);
 	
 	gui.addPanel("", 8, false);
@@ -156,6 +158,10 @@ void testApp::setup() {
 	
 	setupGui();
 	setupOCV();
+	sample[0].loadSound("1.wav", false);
+	sample[1].loadSound("2.wav", false);
+	sample[2].loadSound("3.wav", false);
+	
 	
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
@@ -261,7 +267,15 @@ void testApp::update(){
 	updateOCV();
 	
 	fluidSolver.update();
+	//average speed in fluid is used to decay the volume  of the sample
+	//sample is triggered in addfluid function.
+	sample[1].setVolume(fluidSolver._avgSpeed*10000);
 
+	sample[1].setSpeed(1.0-((float)mouseY/(float)ofGetHeight()));
+
+	
+	
+	
 	//if input mode is '0' use mouse as interaction (see mouse listener)
 	if(inputmode==0){
 		pmouseX = mouseX;
@@ -341,7 +355,7 @@ void testApp::mouseMoved(int x, int y ){
 
     addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
 	}
-	
+	mouseY = y;
 }
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
