@@ -147,7 +147,7 @@ public:
 			HTTPRequest req(HTTPRequest::HTTP_GET, path, HTTPMessage::HTTP_1_1);
 				//JGL addition, authentication required to get mentions
 			if(httpReq.type == TWITTER_TYPE_MENTIONS){
-				HTTPBasicCredentials creds("thehellowall", "KSH)PF$6e48M"); //TODO: make this value settable externally
+				HTTPBasicCredentials creds("USERNAME", "PASSWORD"); //TODO: make this value settable externally
 				creds.authenticate(req);				
 			}
 			session.sendRequest(req);
