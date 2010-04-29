@@ -10,9 +10,14 @@
 
 #define SAMPLERATE		44100
 
-
 #define MAX_NUM_FRAMES (MAX_RECORD_SECONDS*25)
-#define MAX_VIDEOS 12
+#define MAX_VIDEOS 9
+
+#include "ofxOpenCv.h"
+
+#include "blink.h"
+#include <deque>
+
 class testApp : public ofBaseApp{
 	
 public:
@@ -35,6 +40,8 @@ public:
 	
 	void startRecording();
 	void stopRecording();
+	
+	void detectBlink(int camWidth, int camHeight,  const RImage<float> &pixels);	
 
 	// audio recording stuff
 	float *recordBuffer;
@@ -48,11 +55,8 @@ public:
 	// are we currently recording?
 	bool recording;
 	
-	
-	
 	// how loud the microphone is.
 	float inputLevel;
-	
 	
 	ofxControlPanel gui;
 
@@ -68,6 +72,17 @@ public:
 	bool recordMode;
 	int lastSamplePlayed;
 	float playbackSpeed;
+	
+	ofxCvColorImage		colorImg;
+	
+	ofxCvGrayscaleImage 	grayImage;
+	RImage<float>*      RImage_pixels;
+	unsigned char *     detectionPixels; // detection pixels
+	
+	MPBlink blink;
+	VisualObject        faces;
+	
+	FaceObject *fo;	
 };
 
 #endif	

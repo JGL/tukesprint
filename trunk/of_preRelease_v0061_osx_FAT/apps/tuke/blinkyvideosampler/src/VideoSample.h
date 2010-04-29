@@ -26,6 +26,7 @@ public:
 	
 	int frameCount;
 	void draw();
+	void draw(float aWidth, float aHeight);
 	
 private:
 	ofImage display;

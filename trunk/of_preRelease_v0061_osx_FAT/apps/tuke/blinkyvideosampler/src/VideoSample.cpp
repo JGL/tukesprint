@@ -49,5 +49,12 @@ void VideoSample::draw() {
 		display.setFromPixels(frame, VIDEO_WIDTH, VIDEO_HEIGHT, OF_IMAGE_COLOR, true);
 	}
 	display.draw(0, 0);
-	
+}
+
+void VideoSample::draw(float aWidth, float aHeight) {
+	unsigned char *frame = getFrame();
+	if(frame!=NULL) {
+		display.setFromPixels(frame, VIDEO_WIDTH, VIDEO_HEIGHT, OF_IMAGE_COLOR, true);
+	}
+	display.draw(0, 0, aWidth, aHeight);
 }
