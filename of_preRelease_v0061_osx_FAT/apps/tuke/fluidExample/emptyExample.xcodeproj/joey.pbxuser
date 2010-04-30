@@ -85,7 +85,7 @@
 		fRef = D4CC0DC01186F46600051BA0 /* ParticleSystem.cpp */;
 		name = "ParticleSystem.cpp: 43";
 		rLen = 0;
-		rLoc = 997;
+		rLoc = 1804;
 		rType = 0;
 		vrLen = 1391;
 		vrLoc = 741;
@@ -135,7 +135,7 @@
 		fRef = D4CC0DC21186F46600051BA0 /* testApp.cpp */;
 		name = "testApp.cpp: 143";
 		rLen = 0;
-		rLoc = 4529;
+		rLoc = 5042;
 		rType = 0;
 		vrLen = 11573;
 		vrLoc = 0;
@@ -325,36 +325,37 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {901, 1599}}";
 			sepNavSelRange = "{2688, 0}";
-			sepNavVisRange = "{0, 1142}";
+			sepNavVisRange = "{1406, 1363}";
 		};
 	};
 	D4CC0DBF1186F46600051BA0 /* Particle.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {772, 662}}";
+			sepNavIntBoundsRect = "{{0, 0}, {772, 741}}";
 			sepNavSelRange = "{180, 0}";
 			sepNavVisRange = "{0, 428}";
 		};
 	};
 	D4CC0DC01186F46600051BA0 /* ParticleSystem.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {772, 1144}}";
-			sepNavSelRange = "{997, 0}";
-			sepNavVisRange = "{741, 1391}";
+			sepNavIntBoundsRect = "{{0, 0}, {509, 1430}}";
+			sepNavSelRange = "{362, 0}";
+			sepNavVisRange = "{261, 166}";
 		};
 	};
 	D4CC0DC11186F46600051BA0 /* ParticleSystem.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {772, 662}}";
-			sepNavSelRange = "{370, 23}";
-			sepNavVisRange = "{0, 580}";
+			sepNavIntBoundsRect = "{{0, 0}, {772, 741}}";
+			sepNavSelRange = "{477, 0}";
+			sepNavVisRange = "{0, 637}";
+			sepNavWindowFrame = "{{15, 4}, {712, 874}}";
 		};
 	};
 	D4CC0DC21186F46600051BA0 /* testApp.cpp */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{246, 306}\";\n            s = 0;\n        },\n                {\n            r = \"{713, 1047}\";\n            s = 0;\n        },\n                {\n            r = \"{2014, 2515}\";\n            s = 0;\n        },\n                {\n            r = \"{4618, 39}\";\n            s = 0;\n        },\n                {\n            r = \"{4749, 293}\";\n            s = 0;\n        },\n                {\n            r = \"{5132, 464}\";\n            s = 0;\n        },\n                {\n            r = \"{5689, 1100}\";\n            s = 0;\n        },\n                {\n            r = \"{6882, 377}\";\n            s = 0;\n        },\n                {\n            r = \"{7362, 1119}\";\n            s = 0;\n        },\n                {\n            r = \"{8571, 621}\";\n            s = 0;\n        },\n                {\n            r = \"{9280, 215}\";\n            s = 0;\n        },\n                {\n            r = \"{9605, 265}\";\n            s = 0;\n        },\n                {\n            r = \"{10002, 446}\";\n            s = 0;\n        },\n                {\n            r = \"{10978, 319}\";\n            s = 0;\n        },\n                {\n            r = \"{11417, 35}\";\n            s = 0;\n        },\n                {\n            r = \"{11549, 23}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 11573}\";\n    s = 0;\n}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{246, 306}\";\n            s = 0;\n        },\n                {\n            r = \"{713, 1047}\";\n            s = 0;\n        },\n                {\n            r = \"{2014, 3028}\";\n            s = 0;\n        },\n                {\n            r = \"{5131, 39}\";\n            s = 0;\n        },\n                {\n            r = \"{5262, 293}\";\n            s = 0;\n        },\n                {\n            r = \"{5645, 489}\";\n            s = 0;\n        },\n                {\n            r = \"{6227, 1167}\";\n            s = 0;\n        },\n                {\n            r = \"{7487, 377}\";\n            s = 0;\n        },\n                {\n            r = \"{7967, 1119}\";\n            s = 0;\n        },\n                {\n            r = \"{9176, 621}\";\n            s = 0;\n        },\n                {\n            r = \"{9885, 215}\";\n            s = 0;\n        },\n                {\n            r = \"{10210, 265}\";\n            s = 0;\n        },\n                {\n            r = \"{10607, 446}\";\n            s = 0;\n        },\n                {\n            r = \"{11160, 302}\";\n            s = 0;\n        },\n                {\n            r = \"{11583, 319}\";\n            s = 0;\n        },\n                {\n            r = \"{12022, 35}\";\n            s = 0;\n        },\n                {\n            r = \"{12154, 23}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 12178}\";\n    s = 0;\n}";
 			sepNavIntBoundsRect = "{{0, 0}, {772, 741}}";
-			sepNavSelRange = "{664, 0}";
-			sepNavVisRange = "{0, 2405}";
+			sepNavSelRange = "{1032, 0}";
+			sepNavVisRange = "{0, 2104}";
 		};
 	};
 	D4CC0DC31186F46600051BA0 /* testApp.h */ = {
@@ -373,30 +374,30 @@
 	};
 	D4CC0DD31186F4A600051BA0 /* ofxMSAFluidDrawer.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {810, 4589}}";
-			sepNavSelRange = "{8300, 0}";
-			sepNavVisRange = "{7666, 1371}";
+			sepNavIntBoundsRect = "{{0, 0}, {817, 4758}}";
+			sepNavSelRange = "{4665, 0}";
+			sepNavVisRange = "{4088, 1156}";
 		};
 	};
 	D4CC0DD41186F4A600051BA0 /* ofxMSAFluidDrawer.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {772, 1378}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1069, 1625}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 2003}";
+			sepNavVisRange = "{2501, 1451}";
 		};
 	};
 	D4CC0DD51186F4A600051BA0 /* ofxMSAFluidParticleUpdater.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {880, 845}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{532, 2051}";
+			sepNavVisRange = "{308, 2275}";
 		};
 	};
 	D4CC0DD61186F4A600051BA0 /* ofxMSAFluidSolver.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1202, 11947}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1090, 12142}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{11277, 1460}";
+			sepNavVisRange = "{5314, 1218}";
 		};
 	};
 	D4CC0DD71186F4A600051BA0 /* ofxMSAFluidSolver.h */ = {
@@ -592,6 +593,155 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	D4F95223118B2C8E0061110E /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'particleType' was not declared in this scope";
+		fRef = D4CC0DC01186F46600051BA0 /* ParticleSystem.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 22;
+		rType = 1;
+	};
+	D4F95224118B2C8E0061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC01186F46600051BA0 /* ParticleSystem.cpp */;
+		name = "ParticleSystem.cpp: 23";
+		rLen = 0;
+		rLoc = 362;
+		rType = 0;
+		vrLen = 166;
+		vrLoc = 261;
+	};
+	D4F9522D118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EAE741681188902F0096C19E /* ofxCvOpticalFlowLK.h */;
+		name = "ofxCvOpticalFlowLK.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1329;
+		vrLoc = 0;
+	};
+	D4F9522E118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EAE741671188902F0096C19E /* ofxCvOpticalFlowLK.cpp */;
+		name = "ofxCvOpticalFlowLK.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1591;
+		vrLoc = 0;
+	};
+	D4F9522F118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DD51186F4A600051BA0 /* ofxMSAFluidParticleUpdater.h */;
+		name = "ofxMSAFluidParticleUpdater.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2275;
+		vrLoc = 308;
+	};
+	D4F95230118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DBE1186F46600051BA0 /* Particle.cpp */;
+		name = "Particle.cpp: 117";
+		rLen = 0;
+		rLoc = 2688;
+		rType = 0;
+		vrLen = 1363;
+		vrLoc = 1406;
+	};
+	D4F95231118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DBF1186F46600051BA0 /* Particle.h */;
+		name = "Particle.h: 13";
+		rLen = 0;
+		rLoc = 180;
+		rType = 0;
+		vrLen = 428;
+		vrLoc = 0;
+	};
+	D4F95232118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DD61186F4A600051BA0 /* ofxMSAFluidSolver.cpp */;
+		name = "ofxMSAFluidSolver.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1218;
+		vrLoc = 5314;
+	};
+	D4F95233118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC31186F46600051BA0 /* testApp.h */;
+		name = "testApp.h: 12";
+		rLen = 0;
+		rLoc = 232;
+		rType = 0;
+		vrLen = 1155;
+		vrLoc = 0;
+	};
+	D4F95234118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC11186F46600051BA0 /* ParticleSystem.h */;
+		name = "ParticleSystem.h: 29";
+		rLen = 0;
+		rLoc = 477;
+		rType = 0;
+		vrLen = 637;
+		vrLoc = 0;
+	};
+	D4F95235118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DD41186F4A600051BA0 /* ofxMSAFluidDrawer.h */;
+		name = "ofxMSAFluidDrawer.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1451;
+		vrLoc = 2501;
+	};
+	D4F95236118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DD31186F4A600051BA0 /* ofxMSAFluidDrawer.cpp */;
+		name = "ofxMSAFluidDrawer.cpp: 168";
+		rLen = 0;
+		rLoc = 4665;
+		rType = 0;
+		vrLen = 1156;
+		vrLoc = 4088;
+	};
+	D4F95237118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC01186F46600051BA0 /* ParticleSystem.cpp */;
+		name = "ParticleSystem.cpp: 76";
+		rLen = 0;
+		rLoc = 1804;
+		rType = 0;
+		vrLen = 1239;
+		vrLoc = 1283;
+	};
+	D4F95238118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC21186F46600051BA0 /* testApp.cpp */;
+		name = "testApp.cpp: 229";
+		rLen = 0;
+		rLoc = 7374;
+		rType = 0;
+		vrLen = 5660;
+		vrLoc = 6518;
+	};
+	D4F95239118B2C920061110E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D4CC0DC21186F46600051BA0 /* testApp.cpp */;
+		name = "testApp.cpp: 233";
+		rLen = 0;
+		rLoc = 7394;
+		rType = 0;
+		vrLen = 12178;
+		vrLoc = 0;
+	};
 	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = D4E14F1A11393B930042B6DA /* emptyExample */;
@@ -677,6 +827,21 @@
 			D4D1692311885B7600E81583 = D4D1692311885B7600E81583 /* PBXTextBookmark */;
 			D4D1692411885B7600E81583 = D4D1692411885B7600E81583 /* PBXTextBookmark */;
 			D4D1692611885B7600E81583 = D4D1692611885B7600E81583 /* PBXTextBookmark */;
+			D4F95223118B2C8E0061110E /* XCBuildMessageTextBookmark */ = D4F95223118B2C8E0061110E /* XCBuildMessageTextBookmark */;
+			D4F95224118B2C8E0061110E /* PBXTextBookmark */ = D4F95224118B2C8E0061110E /* PBXTextBookmark */;
+			D4F9522D118B2C920061110E /* PBXTextBookmark */ = D4F9522D118B2C920061110E /* PBXTextBookmark */;
+			D4F9522E118B2C920061110E /* PBXTextBookmark */ = D4F9522E118B2C920061110E /* PBXTextBookmark */;
+			D4F9522F118B2C920061110E /* PBXTextBookmark */ = D4F9522F118B2C920061110E /* PBXTextBookmark */;
+			D4F95230118B2C920061110E /* PBXTextBookmark */ = D4F95230118B2C920061110E /* PBXTextBookmark */;
+			D4F95231118B2C920061110E /* PBXTextBookmark */ = D4F95231118B2C920061110E /* PBXTextBookmark */;
+			D4F95232118B2C920061110E /* PBXTextBookmark */ = D4F95232118B2C920061110E /* PBXTextBookmark */;
+			D4F95233118B2C920061110E /* PBXTextBookmark */ = D4F95233118B2C920061110E /* PBXTextBookmark */;
+			D4F95234118B2C920061110E /* PBXTextBookmark */ = D4F95234118B2C920061110E /* PBXTextBookmark */;
+			D4F95235118B2C920061110E /* PBXTextBookmark */ = D4F95235118B2C920061110E /* PBXTextBookmark */;
+			D4F95236118B2C920061110E /* PBXTextBookmark */ = D4F95236118B2C920061110E /* PBXTextBookmark */;
+			D4F95237118B2C920061110E /* PBXTextBookmark */ = D4F95237118B2C920061110E /* PBXTextBookmark */;
+			D4F95238118B2C920061110E /* PBXTextBookmark */ = D4F95238118B2C920061110E /* PBXTextBookmark */;
+			D4F95239118B2C920061110E /* PBXTextBookmark */ = D4F95239118B2C920061110E /* PBXTextBookmark */;
 		};
 		sourceControlManager = D4E14F3B11393BB20042B6DA /* Source Control */;
 		userBuildSettings = {
@@ -687,5 +852,19 @@
 		executables = (
 			D4E14F1A11393B930042B6DA /* emptyExample */,
 		);
+	};
+	EAE741671188902F0096C19E /* ofxCvOpticalFlowLK.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {796, 1040}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1591}";
+		};
+	};
+	EAE741681188902F0096C19E /* ofxCvOpticalFlowLK.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {772, 793}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1329}";
+		};
 	};
 }

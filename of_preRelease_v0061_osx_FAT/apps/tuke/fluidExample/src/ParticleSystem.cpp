@@ -15,6 +15,12 @@
 ParticleSystem::ParticleSystem() {
 	curIndex = 0;
 	numberOfParticleBirths = 0;
+	particleType = 0;
+}
+
+
+void ParticleSystem::setParticleType(int typer){
+	particleType = typer;
 }
 
 
@@ -38,13 +44,36 @@ void ParticleSystem::updateAndDraw(){
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(3, GL_FLOAT, 0, colArray);
 		
-		//glDrawArrays(GL_POLYGON, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
-		//glDrawArrays(GL_LINE_LOOP, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
-		glDrawArrays(GL_LINES, 0, MAX_PARTICLES * 2);
-		//glDrawArrays(GL_TRIANGLE_STRIP, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
-		//glDrawArrays(GL_LINES_ADJACENCY_EXT, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
-		//glDrawArrays(GL_TRIANGLES_ADJACENCY_EXT, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
-		//glDrawArrays(GL_TRIANGLE_FAN, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+		cout << particleType << endl;
+		
+		switch(particleType) {
+				 
+			case 0:
+				glDrawArrays(GL_LINES, 0, MAX_PARTICLES * 2);
+				break;
+			case 1:
+				glDrawArrays(GL_LINE_LOOP, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			case 2:
+				glDrawArrays(GL_POLYGON, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			case 3:
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			case 4:
+				glDrawArrays(GL_LINES_ADJACENCY_EXT, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			case 5:
+				glDrawArrays(GL_TRIANGLES_ADJACENCY_EXT, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			case 6:
+				glDrawArrays(GL_TRIANGLE_FAN, 0, MIN(numberOfParticleBirths*2, MAX_PARTICLES * 2));
+				break;
+			default: 
+				glDrawArrays(GL_LINES, 0, MAX_PARTICLES * 2);
+			
+		}
+	
 		
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);

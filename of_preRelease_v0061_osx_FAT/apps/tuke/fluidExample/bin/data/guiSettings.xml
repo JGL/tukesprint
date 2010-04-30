@@ -44,5 +44,8 @@
     <val_0>5.333333</val_0>
 </opticalflowBlur>
 <Input_Method>
-    <val_0>1.000000</val_0>
+    <val_0>0.000000</val_0>
 </Input_Method>
+<Particle_Type>
+    <val_0>2.000000</val_0>
+</Particle_Type>

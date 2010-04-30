@@ -71,8 +71,9 @@ void testApp::setupGui(){
 	gui.setup("fluidExample", 0, 0, 900, 440);
 	
 	gui.addPanel("", 8, false);
-	gui.addPanel("Tracking", 8, false);
+	gui.addPanel("Flow Control", 8, false);
 	gui.addPanel("Input", 8, false);
+	gui.addPanel("Partile Type", 8, false);
 	
 	//--------- PANEL 1
 	gui.setWhichPanel(0);
@@ -126,6 +127,20 @@ void testApp::setupGui(){
 
 	gui.addTextDropDown("Input Method", "Input_Method", 0, names);
 	
+	//--------- PANEL 4
+	gui.setWhichPanel(3);
+	gui.setWhichColumn(0);
+	vector <string> particletype;
+	particletype.push_back("LINES");
+	particletype.push_back("LINE_LOOP");
+	particletype.push_back("POLYGON");
+	particletype.push_back("TRIANGLE_STRIP");
+	particletype.push_back("LINES_ADJACENCY_EXT");
+	particletype.push_back("TRIANGLES_ADJACENCY_EXT");
+	particletype.push_back("TRIANGLE_FAN");
+	
+	gui.addTextDropDown("Particle Type", "Particle_Type", 0, particletype);
+	
 	
 	fluidCellsX			= 150;
 	
@@ -176,7 +191,7 @@ void testApp::setup() {
 	window.aspectRatio	= 1;
 	
 	// set up OF stuff
-	ofBackground(0, 150, 255);
+	ofBackground(0, 0, 5);
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
 	ofEnableAlphaBlending();
@@ -210,6 +225,8 @@ void testApp::updateGui(){
 		resizeFluid = false;
 		gui.setValueB("resize_Fluid", 0, 0);
 	}
+	
+	particleSystem.setParticleType(gui.getValueI("Particle_Type"));
 	
 	gui.update();
 	
