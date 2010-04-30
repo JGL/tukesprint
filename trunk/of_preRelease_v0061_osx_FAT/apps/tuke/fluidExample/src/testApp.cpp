@@ -176,9 +176,10 @@ void testApp::setup() {
 	window.aspectRatio	= 1;
 	
 	// set up OF stuff
-	ofBackground(0, 0, 0);
+	ofBackground(0, 150, 255);
 	ofSetVerticalSync(true);
-	ofSetFrameRate(60);	
+	ofSetFrameRate(60);
+	ofEnableAlphaBlending();
 
 }
 //--------------------------------------------------------------
