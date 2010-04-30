@@ -53,3 +53,5 @@ http://vimeo.com/user1441704
 
 Mick Donegan talked about MAAVIS, a Firefox based simple HTML interface for controlling media playback. Shows examples of common visual symbols used within SEN sector:
 http://www.assembla.com/wiki/show/maavis
+
+Possibilities to plug the work into the Futurelab SPARK mobile touring exhibition which takes resources around the UK http://www.futurelab.org.uk/projects/spark/exhibits
