@@ -1,14 +1,25 @@
 #include "testApp.h"
 #include "stdio.h"
+#include "ofxDirList.h"
 
 
+pthread_mutex_t         controlMutex = PTHREAD_MUTEX_INITIALIZER;
 
 
+#define PENTATONIC "pentatonic"
+#define MAJOR "major"
+#define MINOR "minor"
+#define CHROMATIC "chromatic"
+
+ofImage Particle::particle;
+ofxControlPanel *Particle::gui;
+ofColor *Particle::color;
 //--------------------------------------------------------------
 void testApp::setup(){	 
 	
 	ofBackground(0,0,0);	
-	
+	Particle::gui = &gui;
+	Particle::color = &particleColorPicker.col;
 	
 	recordBufferSize = SAMPLERATE*MAX_RECORD_SECONDS;
 	recordBuffer = new float[recordBufferSize];
@@ -16,10 +27,27 @@ void testApp::setup(){
 	recording = false;
 	inputLevel = 0;
 	playbackSpeed = 1;
+	lastSound = -1;
+	
+	
+	ofxDirList DIR;
+	
+	int numFiles = DIR.listDir("./../sounds");
+	for(int i = 0; i < numFiles; i++) {
+		sounds.push_back(DIR.getName(i));
+	}
+	
 	
 	// this is the last time that there was a note
 	noteLastTime = -10;
 	lastNote = 0;
+	
+	
+	scales.push_back(PENTATONIC);
+	scales.push_back(MAJOR);
+	scales.push_back(MINOR);
+	scales.push_back(CHROMATIC);
+
 	
 	memset(recordBuffer, 0, recordBufferSize*sizeof(float));
 	// 1 output channels, 
@@ -30,16 +58,13 @@ void testApp::setup(){
 	ofSoundStreamSetup(2,1,this, SAMPLERATE, 256, 1);	
 	ofSetFrameRate(60.f);
 	
-	
-	
-	
-	
+
 	ofxControlPanel::setBackgroundColor(simpleColor(30, 30, 60, 200));
 	ofxControlPanel::setTextColor(simpleColor(240, 50, 50, 255));
 	
 	gui.loadFont("isocpeur.ttf", 8);		
-	gui.setup("Sampler", 0, 0, ofGetWidth(), 700);
-	gui.addPanel("background subtraction example", 4, false);
+	gui.setup("Sampler", 0, 0, 800, 700);
+	gui.addPanel("sampler", 4, false);
 		
 	//--------- PANEL 1
 
@@ -47,10 +72,18 @@ void testApp::setup(){
 	vision.setup(&gui);
 	
 	gui.setWhichColumn(1);
+	gui.addSlider("Pitch", "Pitch", 0, -20, 20, true);
+	gui.addTextDropDown("Scale", "scale", 0, scales);
 	gui.addSlider("Movement Sensitivity", "volumeSensitivity", 0.1, 0, 1, false);
 	gui.addSlider("Movement Threshold", "movementThreshold", 0.1, 0, 1, false);
-	gui.addToggle("Loop Sound", "loopSound", loopSound);
-	gui.addSlider("Loop Duration", "loopDuration", 1.f, 0, 2, false);
+	gui.setWhichColumn(2);
+	gui.addSlider("Star Points", "starPoints", 10, 3, 100, true);
+	gui.addCustomRect("Star colour", &particleColorPicker, 200, 200);
+	gui.addSlider("Star Size", "starSize", 100, 10, 300, false);
+	gui.addSlider("Star Speed", "starSpeed", 50, 10, 120, false);
+	gui.addSlider("Star Lifetime", "starMaxAge", 100, 10, 200, true);
+	gui.addTextDropDown("Sound", "sound", 0, sounds);
+	
 	//load from xml!
 	gui.loadSettings("controlPanelSettings.xml");
 	
@@ -59,6 +92,7 @@ void testApp::setup(){
 	gui.enableEvents();	
 	gui.hide();
 }
+
 void testApp::exit() {
 	gui.saveSettings("controlPanelSettings.xml");
 }
@@ -73,16 +107,19 @@ void testApp::update() {
 	float max = 0;
 	int currMaxLevel = -1;
 	for(int i = 0; i < vision.levels.size(); i++) {
+
 		if(max<vision.levels[i]) {
 			max = vision.levels[i];
 			currMaxLevel = i;
 		}
 	}
+
 	if(lastMaxLevel!=currMaxLevel) {
-		printf("Playing note %d %f\n", currMaxLevel, max);
+		//printf("Playing note %d %f\n", currMaxLevel, max);
 		float volume = ofMap(max, 0, gui.getValueF("volumeSensitivity"), 0, 1);
 		if(volume>1) volume = 1;
 		if(volume>gui.getValueF("movementThreshold")) { // some threshold
+			lastMaxLevel = currMaxLevel;
 			playSound(volume, 1.f - (float)currMaxLevel/vision.levels.size());
 		} else {
 			currMaxLevel = -1;
@@ -92,38 +129,68 @@ void testApp::update() {
 	lastMaxLevel = currMaxLevel;
 
 	
+	int soundIndex = gui.getValueI("sound");
+	if(soundIndex!=lastSound) {
+		printf("loading %s\n", sounds[soundIndex].c_str());
+		string file = "./../sounds/" + sounds[soundIndex];
+		pthread_mutex_lock(&controlMutex);
+		sample.loadFromFile(file);
+		pthread_mutex_unlock(&controlMutex);
+	}
+	lastSound = soundIndex;
+	
 	vision.update();
 	gui.update();
+	for(int i = 0; i < particles.size(); i++) {
+		particles[i].update();
+		if(!particles[i].alive) {
+			particles.erase(particles.begin()+i);
+			i--;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	
+	ofFill();
 	ofEnableAlphaBlending();
 	vision.draw();
-	
-	// volume control
-	//ofSetColor(0xFF0000);
-	//ofRect(0, ofGetHeight()*(1.f-inputLevel), ofGetWidth(), ofGetHeight()*inputLevel);
-	
 
 	// fade out a note
 	if(ofGetElapsedTimef() - noteLastTime < 1.5f) {
-		float alpha = ofMap(ofGetElapsedTimef() - noteLastTime, 0, 1.5, 255, 0);
-		ofSetColor(50, 50, 255, alpha);
-		if(vision.vertical) {
-			float height = (float) ofGetHeight()/vision.levels.size();
-			ofRect(0, height*lastNote, ofGetWidth(), height);
-		} else {
-			float width = (float) ofGetWidth() / vision.levels.size();
-			ofRect(lastNote*width, 0, width, ofGetHeight());
-		}
+		float alpha = 0.5*ofMap(ofGetElapsedTimef() - noteLastTime, 0, 1.5, 255, 0);
+		
+		//if(vision.vertical) {
+		float height = (float) ofGetHeight()/vision.levels.size();
+		//ofRect(0, height*lastNote, ofGetWidth(), height);
+		
+		glBegin(GL_QUAD_STRIP);
+		ofSetColor(vision.noteColorPicker.col.r, vision.noteColorPicker.col.g, vision.noteColorPicker.col.b, alpha/2);
+		glVertex2f(0, height*lastNote);
+		glVertex2f(ofGetWidth(), height*lastNote);
+		
+		ofSetColor(vision.noteColorPicker.col.r, vision.noteColorPicker.col.g, vision.noteColorPicker.col.b, alpha);
+		glVertex2f(0, height*lastNote+height/2);
+		glVertex2f(ofGetWidth(), height*lastNote + height/2);
+		
+		ofSetColor(vision.noteColorPicker.col.r, vision.noteColorPicker.col.g, vision.noteColorPicker.col.b, alpha/2);
+		glVertex2f(0, height*lastNote+height);
+		glVertex2f(ofGetWidth(), height*lastNote + height);
+		
+		glEnd();
 		
 	}
 	
+
+	
+
+	ofSetColor(0xFFFFFF);
+
+	for(int i = 0; i < particles.size(); i++) {
+		particles[i].draw();
+	}
 	ofDisableAlphaBlending();
 	gui.draw();
-	
 }
 
 
@@ -149,6 +216,7 @@ void testApp::audioRequested (float * output, int bufferSize, int nChannels) {
 void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){	
 
 
+	pthread_mutex_lock(&controlMutex);
 	for(int i = 0; i < bufferSize; i++) {
 		
 		float inp = input[i*nChannels];
@@ -164,28 +232,31 @@ void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){
 			inputLevel *= 0.99995;
 		}
 	}
+	pthread_mutex_unlock(&controlMutex);
 
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
-	if(key=='h') gui.toggleView();
-	if(key=='f') ofToggleFullscreen();
+	if(key==' ') gui.toggleView();
+	else if(key=='f') ofToggleFullscreen();
 	
-	if(!recording) { // this stops that weird key repeating thing
+	else if(!recording) { // this stops that weird key repeating thing
 		recordPos = 0;
 		recording = true;
-		printf("Key pressed\n");
+		//printf("Key pressed\n");
 	}
 }
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){ 
 	
-	recording = false;
-	sample.load(recordBuffer, recordPos);
-	sample.normalize();
-	printf("Recorded %d samples\n", recordPos);
+	if(recording) {
+		recording = false;
+		sample.load(recordBuffer, recordPos);
+		sample.normalize(0.5);
+	}
+	//printf("Recorded %d samples\n", recordPos);
 }
 
 //--------------------------------------------------------------
@@ -203,7 +274,26 @@ void testApp::playSound(float volume, float pitch) {
 	sample.trigger(volume);
 	noteLastTime = ofGetElapsedTimef();
 	lastNote = vision.levels.size() - pitch*vision.levels.size();
+	
+	// do some stuff here
+	ofPoint pos, force;
+	if(vision.getBiggestFlowPoint(&pos, &force)) {
+		// correct the y pos
+		float y = (float)((float)lastMaxLevel+0.5)/vision.levels.size();
+		pos.y = y;
+		spawnParticle(pos, volume);
+	}
 }
+
+void testApp::spawnParticle(ofPoint pos, float volume) {
+	int star = gui.getValueI("starPoints");
+	for(int i = 0; i < star; i++) {
+		float angle = (float)i/star;
+		angle *= 2*PI;
+		particles.push_back(Particle(pos.x*ofGetWidth(), pos.y*ofGetHeight(), volume, angle));
+	}
+}
+
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
 	int note = valueToNote(1.f-((float)y/ofGetHeight()));
@@ -230,7 +320,17 @@ float testApp::noteToSpeed(int note) {
 
 int testApp::valueToNote(float value) {
 
+	int scale = gui.getValueI("scale");
 	int notesInScale = 5;
+	if(scales[scale]==PENTATONIC) {
+		notesInScale = 5;
+	} else if(scales[scale]==MAJOR) {
+		notesInScale = 7;
+	} else if(scales[scale]==MINOR) {
+		notesInScale = 7;
+	} else if(scales[scale]==CHROMATIC) {
+		notesInScale = 12;
+	}
 	int maxOctaves = 2;
 	
 	// how many octaves we want
@@ -249,38 +349,44 @@ int testApp::valueToNote(float value) {
 	noteNum = floor(noteInScale/notesInScale)*12;
 	
 	// add the note offset
-	switch(noteInScale%notesInScale) {
-		case 0: noteNum += 0;  break;
-		case 1: noteNum += 3;  break;
-		case 2: noteNum += 5;  break;
-		case 3: noteNum += 7;  break;
-		case 4: noteNum += 10; break;
-	}
-	return noteNum + gui.getValueF("Pitch");
-	/*	
+	
+	
+	
+	if(scales[scale]==PENTATONIC) {
+		switch(noteInScale%notesInScale) {
+			case 0: noteNum += 0;  break;
+			case 1: noteNum += 3;  break;
+			case 2: noteNum += 5;  break;
+			case 3: noteNum += 7;  break;
+			case 4: noteNum += 10; break;
+		}
+	} else if(scales[scale]==MAJOR) {
+		switch(noteInScale%notesInScale) {
+			case 0: noteNum += 0;  break;
+			case 1: noteNum += 2;  break;
+			case 2: noteNum += 4;  break;
+			case 3: noteNum += 5;  break;
+			case 4: noteNum += 7; break;
+			case 5: noteNum += 9;  break;
+			case 6: noteNum += 11;  break;
 
-		pentatonic[0] = 0;
-		pentatonic[1] = 3;
-		pentatonic[2] = 5;
-		pentatonic[3] = 7;
-		pentatonic[4] = 10;
-		
-		major[0] = 0;
-		major[1] = 2;
-		major[2] = 4;
-		major[3] = 5;
-		major[4] = 7;
-		major[5] = 9;
-		major[6] = 11;
-		
-		
-		minor[0] = 0;
-		minor[1] = 2;
-		minor[2] = 3;
-		minor[3] = 5;
-		minor[4] = 7;
-		minor[5] = 8;
-		minor[6] = 11;*/
-		
+		}
+	} else if(scales[scale]==MINOR) {
+		switch(noteInScale%notesInScale) {
+			case 0: noteNum += 0;  break;
+			case 1: noteNum += 2;  break;
+			case 2: noteNum += 3;  break;
+			case 3: noteNum += 5;  break;
+			case 4: noteNum += 7;  break;
+			case 5: noteNum += 8;  break;
+			case 6: noteNum += 11; break;
+		}
+	} else if(scales[scale]==CHROMATIC) {
+		noteNum += noteInScale%notesInScale;
+	}
+	
+	
+	return noteNum + gui.getValueF("Pitch");
+			
 }
 

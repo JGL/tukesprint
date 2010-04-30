@@ -2,74 +2,93 @@
 #include "stdio.h"
 
 
-
-
+#define BUFFER_SIZE 2048
+#define NUM_BARS 128.f
+float fftSmoothing = 0.9;
+float threshold = 0.04;
+bool zoom = false;
+float volume = 0;
+float pitch = 0;
 //--------------------------------------------------------------
 void testApp::setup(){	 
 	
-	ofBackground(255,255,255);	
+	ofBackground(0,0,0);	
+	ofSoundStreamSetup(0,1,this, 44100, BUFFER_SIZE, 1);	
+	fft = ofxFft::create(BUFFER_SIZE, OF_FFT_WINDOW_BARTLETT);
+	fftOutput = new float[fft->getBinSize()];
+	fftOutputSmoothed = new float[fft->getBinSize()];
+	memset(fftOutputSmoothed, 0, fft->getBinSize()*sizeof(float));
 	
-	// 0 output channels, 
-	// 2 input channels
-	// 22050 samples per second
-	// 256 samples per buffer
-	// 4 num buffers (latency)
-	
-	ofSoundStreamSetup(0,2,this, 44100, 256, 4);	
-	left = new float[256];
-	right = new float[256];
-	
-	
-	bufferCounter = 0;
-	drawCounter = 0;
+	inputFilter.q = 1;
+	inputFilter.type = HI;
+	inputFilter.calc_filter_coeffs(150);
+}
 
+void testApp::update() {
+	if(volume>threshold) {
+		// find highest peak
+		float max = 0;
+		int maxI = -1;
+		for(int i = 0; i < NUM_BARS; i++) {
+			if(max<fftOutputSmoothed[i]) {
+				max = fftOutputSmoothed[i];
+				maxI = i;
+			}
+		}
+		if(maxI>-1) {
+			pitch = maxI;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	
-	
-	// draw the left:
-	ofSetColor(0x333333);
-	ofRect(100,100,256,200);
 	ofSetColor(0xFFFFFF);
-	for (int i = 0; i < 256; i++){
-		ofLine(100+i,200,100+i,200+left[i]*100.0f);
-	}
 	
-	// draw the right:
-	ofSetColor(0x333333);
-	ofRect(600,100,256,200);
-	ofSetColor(0xFFFFFF);
-	for (int i = 0; i < 256; i++){
-		ofLine(600+i,200,600+i,200+right[i]*100.0f);
+	float colWidth = (float)ofGetWidth()/NUM_BARS;
+	for(int i = 0; i < NUM_BARS; i++) {
+		ofRect(colWidth*i, 0, colWidth, ofGetHeight()*fftOutputSmoothed[i]*5.f);
 	}
-	
-    
-
-	ofSetColor(0x333333);
-	drawCounter++;
-	char reportString[255];
-	sprintf(reportString, "buffers received: %i\ndraw routines called: %i\n", bufferCounter,drawCounter);
-	ofDrawBitmapString(reportString,80,380);
+	ofSetColor(0xFF0000);
+	ofRect(0, ofGetHeight()-20, ofGetWidth()*volume, 20);
+	ofSetColor(0xFFFF00);
+	ofCircle(10+pitch*ofGetWidth()/NUM_BARS, ofGetHeight()/2, 20);
 }
 
 
-static float adder = 0;
+
+
+
 //--------------------------------------------------------------
 void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){	
-	// samples are "interleaved"
-	for (int i = 0; i < bufferSize; i++){
-		left[i] = input[i*2];
-		right[i] = input[i*2+1];
-	}
-	bufferCounter++;
 	
+	inputFilter.filter(input, bufferSize);
+	inputFilter.filter(input, bufferSize);
+	
+	fft->setSignal(input);
+	fftOutput = fft->getAmplitude();
+	int binSize = fft->getBinSize();
+
+	for(int i = 0; i < binSize; i++) {
+		if(fftOutput[i]<threshold) {
+			fftOutput[i] = 0;
+		}
+		fftOutputSmoothed[i] = fftOutputSmoothed[i]*(fftSmoothing) + (1.f-fftSmoothing)*fftOutput[i];
+	}
+
+	for(int i = 0; i < bufferSize; i++) {
+		if(input[i]>volume) {
+			volume = input[i];
+		} else {
+			volume *= 0.9999;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
-	
+
 }
 
 //--------------------------------------------------------------
@@ -89,7 +108,6 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
 }
 
 //--------------------------------------------------------------

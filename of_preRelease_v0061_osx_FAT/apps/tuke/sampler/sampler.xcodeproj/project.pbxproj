@@ -73,6 +73,8 @@
 		EA530F72118709F800C8D244 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA530F6B118709F800C8D244 /* tinyxmlparser.cpp */; };
 		EA530F73118709F800C8D244 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA530F6D118709F800C8D244 /* ofxXmlSettings.cpp */; };
 		EA530FCD11871C7800C8D244 /* openCV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA530FCC11871C7800C8D244 /* openCV.a */; };
+		EAFE50811189B4C9003856BC /* customDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFE507D1189B4C9003856BC /* customDrawer.cpp */; };
+		EAFE50821189B4C9003856BC /* ofxCvOpticalFlowLK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFE507F1189B4C9003856BC /* ofxCvOpticalFlowLK.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +258,11 @@
 		EA530F6D118709F800C8D244 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		EA530F6E118709F800C8D244 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		EA530FCC11871C7800C8D244 /* openCV.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = openCV.a; sourceTree = "<group>"; };
+		EAFE4ED41189967C003856BC /* WavFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavFile.h; sourceTree = "<group>"; };
+		EAFE507D1189B4C9003856BC /* customDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customDrawer.cpp; path = ../videosampler/src/customDrawer.cpp; sourceTree = SOURCE_ROOT; };
+		EAFE507E1189B4C9003856BC /* customDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = customDrawer.h; path = ../videosampler/src/customDrawer.h; sourceTree = SOURCE_ROOT; };
+		EAFE507F1189B4C9003856BC /* ofxCvOpticalFlowLK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCvOpticalFlowLK.cpp; path = ../videosampler/src/ofxCvOpticalFlowLK.cpp; sourceTree = SOURCE_ROOT; };
+		EAFE50801189B4C9003856BC /* ofxCvOpticalFlowLK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCvOpticalFlowLK.h; path = ../videosampler/src/ofxCvOpticalFlowLK.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,12 +493,17 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				EAFE507D1189B4C9003856BC /* customDrawer.cpp */,
+				EAFE507E1189B4C9003856BC /* customDrawer.h */,
+				EAFE507F1189B4C9003856BC /* ofxCvOpticalFlowLK.cpp */,
+				EAFE50801189B4C9003856BC /* ofxCvOpticalFlowLK.h */,
 				EA530EB4118707E200C8D244 /* Vision.h */,
 				EA530DF01186FA8800C8D244 /* Sample.cpp */,
 				EA530DF11186FA8800C8D244 /* Sample.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				EAFE4ED41189967C003856BC /* WavFile.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -917,6 +929,8 @@
 				EA530F71118709F800C8D244 /* tinyxmlerror.cpp in Sources */,
 				EA530F72118709F800C8D244 /* tinyxmlparser.cpp in Sources */,
 				EA530F73118709F800C8D244 /* ofxXmlSettings.cpp in Sources */,
+				EAFE50811189B4C9003856BC /* customDrawer.cpp in Sources */,
+				EAFE50821189B4C9003856BC /* ofxCvOpticalFlowLK.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
