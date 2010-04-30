@@ -305,9 +305,18 @@ void ofxMSAFluidDrawer::drawVectors(float x, float y, float renderWidth, float r
 
 	#ifndef TARGET_OPENGLES
 					glBegin(GL_LINES);
-					glColor3f(0, 0, 0); glVertex2f(i, j);
-					glColor3f(1, 1, 1); glVertex2f(i + vel.x, j + vel.y);
+
+					glColor4f(0, 0.2, 0.8, 0.0); glVertex2f(i, j);
+					glColor4f(0, 0.2, 0.8, 0.8); glVertex2f(i + vel.x, j + vel.y);
 					glEnd();
+
+				
+					float distance = ofDist(i, j, vel.x, vel.y);
+
+					ofSetColor(255, 255, 255, (_fluidSolver->_avgSpeed*10000)*distance);
+					//ofNoFill();
+					ofEllipse(i + vel.x, j + vel.y, 0.5, 0.5);
+				
 	#endif
 			}
 		}
