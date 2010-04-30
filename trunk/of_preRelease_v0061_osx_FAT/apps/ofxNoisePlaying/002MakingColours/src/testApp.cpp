@@ -13,19 +13,41 @@ void testApp::setup(){
 	texColor.allocate(w,h,GL_RGB);
 	
 	colorPixels 		= new unsigned char [w*h*3];
+	
+		//noise->noiseDetail(8,0.5);
+}
+
+float cloudfilter(float val) {
+	return (1-pow(0.9f,MAX(val-0.55f,0)*255));
 }
 
 	//--------------------------------------------------------------
 void testApp::update(){
 	
+	float red,green,blue;
+	
+	red = 100;
+	green = 200;
+	blue = 300;
+	
+	float ns = 0.01f;
+	float z=ofGetElapsedTimef()/10.f;
 		// color pixels, use w and h to control red and green
+//	for (int i = 0; i < w; i++){
+//		for (int j = 0; j < h; j++){
+//			colorPixels[(j*w+i)*3 + 0] = cloudfilter(noise->noiseuf(i*ns+red,j*ns,z))*255;	// r
+//			colorPixels[(j*w+i)*3 + 1] = cloudfilter(noise->noiseuf(i*ns+green,j*ns,z))*255;
+//			colorPixels[(j*w+i)*3 + 2] = cloudfilter(noise->noiseuf(i*ns+blue,j*ns,z))*255;
+//		}
+//	}
+
 	for (int i = 0; i < w; i++){
 		for (int j = 0; j < h; j++){
-			colorPixels[(j*w+i)*3 + 0] = noise->noiseuf((j*w+i)*3 + 0,(float)ofGetFrameNum())*255;	// r
-			colorPixels[(j*w+i)*3 + 1] = noise->noiseuf((j*w+i)*3 + 1,(float)ofGetFrameNum())*255;
-			colorPixels[(j*w+i)*3 + 2] = noise->noiseuf((j*w+i)*3 + 2,(float)ofGetFrameNum())*255;
+			colorPixels[(j*w+i)*3 + 0] = noise->noiseuf(i*ns+red,j*ns,z)*255;	// r
+			colorPixels[(j*w+i)*3 + 1] = noise->noiseuf(i*ns+green,j*ns,z)*255;
+			colorPixels[(j*w+i)*3 + 2] = noise->noiseuf(i*ns+blue,j*ns,z)*255;
 		}
-	}
+	}	
 	
 	texColor.loadData(colorPixels, w,h, GL_RGB);
 }
@@ -54,7 +76,7 @@ void testApp::draw(){
 	
 		//now lets get a texture going
 	
-	texColor.draw(20, 20);
+	texColor.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 	//--------------------------------------------------------------
