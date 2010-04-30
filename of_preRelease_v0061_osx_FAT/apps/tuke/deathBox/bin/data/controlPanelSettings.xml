@@ -1,0 +1,36 @@
+<GRAB_BACKGROUND>
+    <val_0>0.000000</val_0>
+</GRAB_BACKGROUND>
+<BG_THRESHOLD>
+    <val_0>15.111112</val_0>
+</BG_THRESHOLD>
+<DIFF_MODE>
+    <val_0>0.000000</val_0>
+</DIFF_MODE>
+<MOTION_THRESHOLD>
+    <val_0>19.344446</val_0>
+</MOTION_THRESHOLD>
+<MOTION_FADE>
+    <val_0>0.783333</val_0>
+</MOTION_FADE>
+<FIELD_DRAW_SCALE>
+    <val_0>2.500000</val_0>
+</FIELD_DRAW_SCALE>
+<BG_COLOUR1>
+    <val_0>15.111112</val_0>
+</BG_COLOUR1>
+<BG_COLOUR2>
+    <val_0>15.111112</val_0>
+</BG_COLOUR2>
+<BG_COLOUR3>
+    <val_0>15.111112</val_0>
+</BG_COLOUR3>
+<MASS>
+    <val_0>15.111112</val_0>
+</MASS>
+<BOUNCE>
+    <val_0>15.111112</val_0>
+</BOUNCE>
+<FRICTION>
+    <val_0>15.111112</val_0>
+</FRICTION>
