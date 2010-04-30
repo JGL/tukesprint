@@ -134,7 +134,10 @@ void testApp::update() {
 			
 				// stop recording if we get another blink and exceeded the
 				// minimum record time, or we've exceeded the maximum record time.
-			if(recordPos>minRecordTime*44100 && ((fo && (fo->activation < -20))|| recordPos>=recordBufferSize)) {
+			
+				//cout << "Record pos " << recordPos << " fo " << fo << " fo activation " << fo->activation << endl;
+			
+			if((recordPos>minRecordTime*44100) && ((fo && (fo->activation < -20))|| recordPos>=recordBufferSize)) {
 				stopRecording();
 			}			
 		}
