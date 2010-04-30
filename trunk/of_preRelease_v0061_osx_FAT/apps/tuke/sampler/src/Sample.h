@@ -21,6 +21,7 @@ class Sample {
 public:
 	
 	Sample();
+	void loadFromFile(string path);
 	void load(float* data, int length);
 	~Sample() {
 		//delete [] data;
@@ -36,7 +37,7 @@ public:
 	float getSample();
 	float getSample(float speed);
 	void stop();
-	void normalize();
+	void normalize(float amount = 1.f);
 	bool playing;
 	
 	int length;

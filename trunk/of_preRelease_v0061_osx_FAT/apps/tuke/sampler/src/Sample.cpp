@@ -11,11 +11,40 @@
 #endif
 
 #include "Sample.h"
+#include "WavFile.h"
+#include "ofMain.h"
+
 Sample::Sample() {
 	
 	data = NULL;
 }
 
+void Sample::loadFromFile(string path) {
+	if(data!=NULL) delete [] data;
+	WavFile wf;
+	if(wf.load((char*)ofToDataPath(path, true).c_str())) {
+		
+		length = wf.getNumFrames();
+		
+		if(wf.channels==1) {
+			// straight copy
+			data = wf.getData();
+		} else {
+			// copy only the first channel
+			float *d = wf.getData();
+			data = new float[length];
+			for(int i = 0; i < length; i++) {
+				data[i] = d[i*wf.channels];
+			}
+			delete [] d;
+			
+		}
+		printf("Loaded audio file %d samples\n", wf.getNumFrames());
+	} else {
+		
+
+	}
+}
 void Sample::load(float* _data, int _length) {
 
 	pos = 0;
@@ -85,7 +114,7 @@ void Sample::getSamples(float* out, int _length) {
 	}
 }
 
-void Sample::normalize() {
+void Sample::normalize(float amount) {
 	if(data==NULL) return;
 	float max = 0;
 	for(int i = 0; i < length; i++) {
@@ -93,14 +122,20 @@ void Sample::normalize() {
 	}
 	
 	// don't want a divide by zero or any extra work
-	if(max==0 || ABS(max)==1) {
+	if(max==0 || max==1) {
 		return ;
 	}
+	
+	// if max is 1 then gain is 1 regardless of amount
+	// if max is 0 then gain is infinity regardless of amount
+	// if max is 0.5 and amount is 0.5 then gain should be 0.75
+	float newMaxVolume = (1.f - max)*amount;
 	// what do we need to multiply max by to make it 1?
-	float gain = 1.f/max;
+	float gain = newMaxVolume/max;
 	for(int i = 0; i < length; i++) {
 		data[i] *= gain;
 	}
+	
 }
 void Sample::addSamples(float* out, int _length) {
 	int count = 0;
