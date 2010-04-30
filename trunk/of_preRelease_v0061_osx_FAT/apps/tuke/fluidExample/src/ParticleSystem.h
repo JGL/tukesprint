@@ -26,9 +26,13 @@ public:
 	
     ParticleSystem();
 	
+	int particleType;
+	
     void updateAndDraw();
 	void addParticles(float x, float y, int count );
 	void addParticle(float x, float y);
+	
+	void setParticleType(int typer);
 };
 
 
