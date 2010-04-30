@@ -17,7 +17,7 @@
     <val_0>12.505555</val_0>
 </fs_solverIterations>
 <fd_drawMode>
-    <val_0>3.000000</val_0>
+    <val_0>0.000000</val_0>
 </fd_drawMode>
 <fs_doRGB>
     <val_0>1.000000</val_0>
@@ -44,5 +44,5 @@
     <val_0>5.333333</val_0>
 </opticalflowBlur>
 <Input_Method>
-    <val_0>0.000000</val_0>
+    <val_0>1.000000</val_0>
 </Input_Method>
